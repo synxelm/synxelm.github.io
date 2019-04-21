@@ -1841,7 +1841,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #c6ff37;
+  background: #a7de86;
 }
 .feed-link,
 .chat {
@@ -2028,10 +2028,13 @@ pre .javascript .function {
 .footer-inner {
   text-align: center;
 }
+#animate {
+  animation: iconAnimate 1.33s ease-in-out infinite;
+}
 .with-love {
   display: inline-block;
   margin: 0 5px;
-  color: #808080;
+  color: #ff0000;
 }
 .powered-by,
 .theme-info {
@@ -2092,6 +2095,26 @@ pre .javascript .function {
   50%, 70% {
     transform: scale(1.1);
   }
+}
+#gitment-display-button {
+  display: inline-block;
+  padding: 0 15px;
+  color: #0a9caf;
+  cursor: pointer;
+  font-size: 14px;
+  border: 1px solid #0a9caf;
+  border-radius: 4px;
+}
+#gitment-display-button:hover {
+  color: #fff;
+  background: #0a9caf;
+}
+#gitment-container a {
+  border-bottom: none;
+}
+a.gitment-editor-footer-tip,
+.gitment-container.gitment-footer-container {
+  display: none;
 }
 .local-search-pop-overlay {
   position: fixed;
@@ -2460,7 +2483,7 @@ ul.breadcrumb li+li:last-child {
   width: 240px;
   background: #fff;
   box-shadow: initial;
-  border-radius: initial;
+  border-radius: 16px;
 }
 @media (min-width: 1200px) {
   .container .header-inner {
@@ -2495,7 +2518,7 @@ ul.breadcrumb li+li:last-child {
   background: #fff;
   min-height: 700px;
   box-shadow: initial;
-  border-radius: initial;
+  border-radius: 16px;
 }
 @media (min-width: 768px) and (max-width: 991px) {
   .content-wrap {
@@ -2725,7 +2748,7 @@ ul.breadcrumb li+li:last-child {
   color: #555;
   background: #fff;
   box-shadow: initial;
-  border-radius: initial;
+  border-radius: 16px;
   opacity: 0;
 }
 .sidebar-inner.affix {
