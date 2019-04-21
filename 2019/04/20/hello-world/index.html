@@ -476,10 +476,7 @@
           
 
   
-    <div class="comments" id="comments">
-      
-        <div id="gitment-container"></div>
-      
+    <div class="comments" id="gitalk-container">
     </div>
 
   
@@ -737,35 +734,32 @@
 
 
   
-    <!-- LOCAL: You can save these files to your site and update links -->
+    
 
-  
-  <script src="https://www.wenjunjiang.win/js/gitment.js"></script>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
 
-<link rel="stylesheet" href="https://www.wenjunjiang.win/css/gitment.css">
-<!-- END LOCAL -->
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
 
 <script>
-  function renderGitment() {
-    var gitment = new Gitment({
-      id: window.location.pathname,
-      owner: 'synxelm',
-      repo: 'gitment',
-      
-      oauth: {
-      
-      
-        client_secret: 'c7e5df465996f49e46b8ac096499ee524aed12f5',
-      
-        client_id: '39cdf8a4f7764b0c110b'
-      }
-    });
-    gitment.render('gitment-container');
-  }
-
-  
-    renderGitment();
-  
+  var gitalk = new Gitalk({
+    clientID: '39cdf8a4f7764b0c110b',
+    clientSecret: 'c7e5df465996f49e46b8ac096499ee524aed12f5',
+    repo: 'gitment',
+    owner: 'synxelm',
+    admin: [''],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
 </script>
 
   
