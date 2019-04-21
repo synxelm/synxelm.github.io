@@ -383,6 +383,13 @@
           
 
   
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
 
 
 
@@ -408,9 +415,12 @@
       <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/">
             
-              <img class="site-author-image" itemprop="image" src="https://avatars1.githubusercontent.com/u/32269?v=3&s=460#/images/avatar.gif" alt="stone">
             
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="stone">
+            
+          </a>
               <p class="site-author-name" itemprop="name">stone</p>
               <div class="site-description motion-element" itemprop="description"></div>
           </div>
@@ -453,6 +463,9 @@
         </div>
       </div>
 
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="298" height="52" src="https://music.163.com/outchain/player?type=2&id=519338231&auto=1&height=32"></iframe>
+
+
       
 
       
@@ -470,7 +483,7 @@
       <div class="footer-inner">
         <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love" id="animate">
-    <i class="fa fa-user"></i>
+    <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">stone</span>
 
@@ -602,6 +615,40 @@
 
   
 
+
+  
+    <!-- LOCAL: You can save these files to your site and update links -->
+
+  
+  <script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitmint.browser.js"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/default.css">
+<!-- END LOCAL -->
+
+<script>
+  function renderGitment() {
+    var gitment = new Gitmint({
+      id: window.location.pathname,
+      owner: 'synxelm',
+      repo: 'git@github.com:synxelm/gitment.git',
+      
+        lang: '' || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+      
+      oauth: {
+      
+      
+        client_secret: 'c7e5df465996f49e46b8ac096499ee524aed12f5',
+      
+        client_id: '39cdf8a4f7764b0c110b'
+      }
+    });
+    gitment.render('gitment-container');
+  }
+
+  
+    renderGitment();
+  
+</script>
 
   
 
