@@ -106,18 +106,18 @@
 
 
 
-  <meta name="description" content="Markdown简介  Markdown 是一种轻量级标记语言，它请允许人们使用易读易写的纯文本格式编写文档，然后转换成格式丰富的HTML页面。  –维基百科  粗体 斜体 粗斜 脚注[^demo] 行间代码 删除    done &amp;copy;   代码块12345@requires_autorizationdef somefunc(param1=&apos;&apos;,param2=0):	&apos;&apos;&apos;A docstr">
+  <meta name="description" content="Markdown简介  Markdown 是一种轻量级标记语言，它请允许人们使用易读易写的纯文本格式编写文档，然后转换成格式丰富的HTML页面。  –维基百科  粗体 斜体 粗斜 脚注[^1] 行间代码 删除    done &amp;copy;   代码块12345@requires_autorizationdef somefunc(param1=&apos;&apos;,param2=0):	&apos;&apos;&apos;A docstring">
 <meta name="keywords" content="hello,hexo,markdown">
 <meta property="og:type" content="article">
 <meta property="og:title" content="test">
 <meta property="og:url" content="http://yoursite.com/2019/04/21/test/index.html">
 <meta property="og:site_name" content="流离尸所">
-<meta property="og:description" content="Markdown简介  Markdown 是一种轻量级标记语言，它请允许人们使用易读易写的纯文本格式编写文档，然后转换成格式丰富的HTML页面。  –维基百科  粗体 斜体 粗斜 脚注[^demo] 行间代码 删除    done &amp;copy;   代码块12345@requires_autorizationdef somefunc(param1=&apos;&apos;,param2=0):	&apos;&apos;&apos;A docstr">
+<meta property="og:description" content="Markdown简介  Markdown 是一种轻量级标记语言，它请允许人们使用易读易写的纯文本格式编写文档，然后转换成格式丰富的HTML页面。  –维基百科  粗体 斜体 粗斜 脚注[^1] 行间代码 删除    done &amp;copy;   代码块12345@requires_autorizationdef somefunc(param1=&apos;&apos;,param2=0):	&apos;&apos;&apos;A docstring">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-04-21T13:29:10.249Z">
+<meta property="og:updated_time" content="2019-04-22T04:12:15.155Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="test">
-<meta name="twitter:description" content="Markdown简介  Markdown 是一种轻量级标记语言，它请允许人们使用易读易写的纯文本格式编写文档，然后转换成格式丰富的HTML页面。  –维基百科  粗体 斜体 粗斜 脚注[^demo] 行间代码 删除    done &amp;copy;   代码块12345@requires_autorizationdef somefunc(param1=&apos;&apos;,param2=0):	&apos;&apos;&apos;A docstr">
+<meta name="twitter:description" content="Markdown简介  Markdown 是一种轻量级标记语言，它请允许人们使用易读易写的纯文本格式编写文档，然后转换成格式丰富的HTML页面。  –维基百科  粗体 斜体 粗斜 脚注[^1] 行间代码 删除    done &amp;copy;   代码块12345@requires_autorizationdef somefunc(param1=&apos;&apos;,param2=0):	&apos;&apos;&apos;A docstring">
 
 
 
@@ -384,12 +384,24 @@
                 
               
 
-              <time title="Created: 2019-04-21 20:04:08 / Modified: 21:29:10" itemprop="dateCreated datePublished" datetime="2019-04-21T20:04:08+08:00">2019-04-21</time>
+              <time title="Created: 2019-04-21 20:04:08" itemprop="dateCreated datePublished" datetime="2019-04-21T20:04:08+08:00">2019-04-21</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-22 12:12:15" itemprop="dateModified" datetime="2019-04-22T12:12:15+08:00">2019-04-22</time>
               
             
           </span>
@@ -445,7 +457,7 @@
 <blockquote>
 <p>Markdown 是一种轻量级标记语言，它请允许人们使用易读易写的纯文本格式<br>编写文档，然后转换成格式丰富的HTML页面。  –<a href="https://zh.wikipedia.org/wiki/Markdown" target="_blank" rel="noopener">维基百科</a></p>
 </blockquote>
-<p><strong>粗体</strong> <em>斜体</em> <strong><em>粗斜</em></strong> 脚注[^demo] <code>行间代码</code> <del>删除</del> </p>
+<p><strong>粗体</strong> <em>斜体</em> <strong><em>粗斜</em></strong> 脚注[^1] <code>行间代码</code> <del>删除</del> </p>
 <ul>
 <li style="list-style: none"><input type="checkbox" checked> done &copy; </li>
 </ul>
@@ -886,6 +898,46 @@
   
   
 
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      document.getElementById(all[i].inputID + '-Frame').parentNode.className += ' has-jax';
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
   
 
 

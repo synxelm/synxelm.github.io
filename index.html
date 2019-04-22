@@ -385,12 +385,24 @@
                 
               
 
-              <time title="Created: 2019-04-21 20:04:08 / Modified: 21:29:10" itemprop="dateCreated datePublished" datetime="2019-04-21T20:04:08+08:00">2019-04-21</time>
+              <time title="Created: 2019-04-21 20:04:08" itemprop="dateCreated datePublished" datetime="2019-04-21T20:04:08+08:00">2019-04-21</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-22 12:12:15" itemprop="dateModified" datetime="2019-04-22T12:12:15+08:00">2019-04-22</time>
               
             
           </span>
@@ -449,11 +461,11 @@
 
 Markdown 是一种轻量级标记语言，它请允许人们使用易读易写的纯文本格式编写文档，然后转换成格式丰富的HTML页面。  –维基百科
 
-粗体 斜体 粗斜 脚注[^demo] 行间代码 删除 
+粗体 斜体 粗斜 脚注[^1] 行间代码 删除 
 
  done &copy; 
 
-代码块@requires_autorization
+代码块@requires_autorizationdef
               ...
             </p>
           <!--noindex-->
@@ -934,11 +946,53 @@ Markdown 是一种轻量级标记语言，它请允许人们使用易读易写�
   
     
       
+        
+      
     
       
     
   
 
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      document.getElementById(all[i].inputID + '-Frame').parentNode.className += ' has-jax';
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
   
 
 
