@@ -1774,7 +1774,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #8288b3;
+  background: #639eff;
 }
 .feed-link,
 .chat {
@@ -2933,7 +2933,7 @@ hr {
   background-color: #59ff83;
   color: #555;
 }
-.posts-expand .home .post-title {
+.posts-expand .post-title {
   font-size: 1.2em;
   text-align: left;
   border-left: #7fb8ee 8px solid;
@@ -2942,7 +2942,7 @@ hr {
 .post-title {
   font-weight: 900 !important;
 }
-.posts-expand .home .post-meta {
+.posts-expand .post-meta {
   text-align: left;
   margin: 8px 0 15px !important;
 }
