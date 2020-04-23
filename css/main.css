@@ -1260,7 +1260,7 @@ pre .javascript .function {
   opacity: 0;
 }
 .posts-expand {
-  padding-top: 10px;
+  padding-top: 0px;
 }
 @media (max-width: 767px) {
   .posts-expand {
@@ -1774,7 +1774,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ffebcf;
+  background: #09ffa8;
 }
 .feed-link,
 .chat {
@@ -2896,6 +2896,7 @@ body {
 }
 .content-wrap {
   width: calc(100% - 300px);
+  padding: initial;
 }
 @media (max-width: 767px) {
   .content-wrap {
