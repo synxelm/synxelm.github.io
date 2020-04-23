@@ -981,7 +981,7 @@ pre .javascript .function {
   margin-top: 4px;
 }
 .pagination {
-  margin: 120px 0 40px;
+  margin: 10px 0 10px;
   text-align: center;
   border-top: 1px solid #eee;
 }
@@ -1774,7 +1774,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ff7;
+  background: #f70af9;
 }
 .feed-link,
 .chat {
