@@ -1774,7 +1774,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #fffff6;
+  background: #7c1f20;
 }
 .feed-link,
 .chat {
@@ -2842,7 +2842,7 @@ body {
   box-shadow: 0 1px 2px 0px rgba(0,0,0,0.1), 0 2px 4px 0px rgba(0,0,0,0.1);
   margin-top: 10px;
   margin-bottom: 20px;
-  padding: 10px 20px 20px 30px;
+  padding: 10px 15px 20px 15px;
   background: rgba(255,255,255,0.9);
 }
 .post-block:hover {
