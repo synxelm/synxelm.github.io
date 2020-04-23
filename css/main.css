@@ -1042,7 +1042,7 @@ pre .javascript .function {
   .pagination .prev,
   .pagination .next,
   .pagination .page-number {
-    margin-bottom: 10px;
+    margin: 6.5px 2.5px;
     border-top: 0;
     border-bottom: 1px solid #eee;
     padding: 0 10px;
@@ -1774,7 +1774,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #f70af9;
+  background: #ffff8c;
 }
 .feed-link,
 .chat {
