@@ -1774,7 +1774,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #65d6c9;
+  background: #abffcb;
 }
 .feed-link,
 .chat {
@@ -3091,7 +3091,7 @@ p {
   font-size: small;
 }
 .site-meta {
-  background-image: linear-gradient(200deg, #eee1d0, #cdbaea) !important;
+  background-image: linear-gradient(200deg, #d4c2c2, #757575) !important;
   background: #fff;
 }
 .tag-cloud-tags a:before {
@@ -3104,46 +3104,7 @@ p {
   position: relative;
   display: inline-block;
   padding: 0 40px;
-  color: #8c888b;
-  background: -webkit-linear-gradient(45deg, #70f7fe, #fbd7c6, #fdefac, #bfb5dd, #bed5f5);
-  color: transparent;
-/*设置字体颜色透明*/
-  -webkit-background-clip: text;
-/*背景裁剪为文本形式*/
-  animation: ran 10s linear infinite;
-/*动态10s展示*/
-}
-@-moz-keyframes ran {
-  from {
-    backgroud-position: 0 0;
-  }
-  to {
-    background-position: 2000px 0;
-  }
-}
-@-webkit-keyframes ran {
-  from {
-    backgroud-position: 0 0;
-  }
-  to {
-    background-position: 2000px 0;
-  }
-}
-@-o-keyframes ran {
-  from {
-    backgroud-position: 0 0;
-  }
-  to {
-    background-position: 2000px 0;
-  }
-}
-@keyframes ran {
-  from {
-    backgroud-position: 0 0;
-  }
-  to {
-    background-position: 2000px 0;
-  }
+  color: #f0ffff;
 }
 p {
   margin: 0 0 10px 0;
