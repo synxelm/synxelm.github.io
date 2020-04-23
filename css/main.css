@@ -1774,7 +1774,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ff45f1;
+  background: #dda3c7;
 }
 .feed-link,
 .chat {
@@ -3093,9 +3093,6 @@ p {
 .site-meta {
   background-image: webkit-gradient(linear, left top, right top, color-stop(0, #fbccd0), color-stop(0.15, #f3eca4), color-stop(0.3, #a1c0fe), color-stop(0.45, #9cd2a5), color-stop(0.6, #fbccd0), color-stop(0.75, #f3eca4), color-stop(0.9, #a1c0fe), color-stop(1, #9cd2a5));
   background: #fff;
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  -ms-background-clip: text;
 }
 .tag-cloud-tags a:before {
   content: "🔖";
