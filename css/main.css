@@ -1774,7 +1774,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ffee54;
+  background: #ff45f1;
 }
 .feed-link,
 .chat {
@@ -3091,23 +3091,23 @@ p {
   font-size: small;
 }
 .site-meta {
+  background-image: webkit-gradient(linear, left top, right top, color-stop(0, #fbccd0), color-stop(0.15, #f3eca4), color-stop(0.3, #a1c0fe), color-stop(0.45, #9cd2a5), color-stop(0.6, #fbccd0), color-stop(0.75, #f3eca4), color-stop(0.9, #a1c0fe), color-stop(1, #9cd2a5));
   background: #fff;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -ms-background-clip: text;
 }
 .tag-cloud-tags a:before {
   content: "🔖";
 }
 .site-title {
   font-style: oblique;
-  background-image: webkit-gradient(linear, left top, right top, color-stop(0, #fbccd0), color-stop(0.15, #f3eca4), color-stop(0.3, #a1c0fe), color-stop(0.45, #9cd2a5), color-stop(0.6, #fbccd0), color-stop(0.75, #f3eca4), color-stop(0.9, #a1c0fe), color-stop(1, #9cd2a5));
 }
 .brand {
   position: relative;
   display: inline-block;
   padding: 0 40px;
   color: transparent;
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  -ms-background-clip: text;
 }
 p {
   margin: 0 0 10px 0;
