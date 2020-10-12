@@ -1,0 +1,1469 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="计算机网络8cookie和session？⭐⭐① cookie 只能存储 ASCII 码，而 session 可以存储任何类型的数据。 ② session 存储在服务器，而 cookie 存储在客户浏览器中，容易被恶意查看。。 ③ session 的运行依赖 session id，而 session id 存在 cookie 中，叫做 JSESSIONID。如果浏览器禁用了 cookie ，同时">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nowhere">
+<meta property="og:url" content="http://yoursite.com/2020/10/12/19_银行面试题/index.html">
+<meta property="og:site_name" content="Nowhere">
+<meta property="og:description" content="计算机网络8cookie和session？⭐⭐① cookie 只能存储 ASCII 码，而 session 可以存储任何类型的数据。 ② session 存储在服务器，而 cookie 存储在客户浏览器中，容易被恶意查看。。 ③ session 的运行依赖 session id，而 session id 存在 cookie 中，叫做 JSESSIONID。如果浏览器禁用了 cookie ，同时">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-09-15T12:21:16.497Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Nowhere">
+<meta name="twitter:description" content="计算机网络8cookie和session？⭐⭐① cookie 只能存储 ASCII 码，而 session 可以存储任何类型的数据。 ② session 存储在服务器，而 cookie 存储在客户浏览器中，容易被恶意查看。。 ③ session 的运行依赖 session id，而 session id 存在 cookie 中，叫做 JSESSIONID。如果浏览器禁用了 cookie ，同时">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2020/10/12/19_银行面试题/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title> | Nowhere</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Nowhere</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/12/19_银行面试题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="stone">
+      <meta itemprop="description" content="Hungry Fool">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nowhere">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-10-12 23:13:43" itemprop="dateCreated datePublished" datetime="2020-10-12T23:13:43+08:00">2020-10-12</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-09-15 20:21:16" itemprop="dateModified" datetime="2020-09-15T20:21:16+08:00">2020-09-15</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">Comments: </span>
+                <a href="/2020/10/12/19_银行面试题/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/10/12/19_银行面试题/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             Views:  
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="计算机网络8"><a href="#计算机网络8" class="headerlink" title="计算机网络8"></a>计算机网络8</h2><h4 id="cookie和session？⭐⭐"><a href="#cookie和session？⭐⭐" class="headerlink" title="cookie和session？⭐⭐"></a>cookie和session？⭐⭐</h4><p>① cookie 只能存储 ASCII 码，而 session 可以存储任何类型的数据。</p>
+<p>② session 存储在服务器，而 cookie 存储在客户浏览器中，容易被恶意查看。。</p>
+<p>③ session 的运行依赖 session id，而 session id 存在 cookie 中，叫做 JSESSIONID。如果浏览器禁用了 cookie ，同时 session 也会失效（可以通过其它方式实现，比如在 url 中传递 session_id）。</p>
+<hr>
+<h4 id="TCP-三次握手的过程？为什么要三次握手？⭐⭐"><a href="#TCP-三次握手的过程？为什么要三次握手？⭐⭐" class="headerlink" title="TCP 三次握手的过程？为什么要三次握手？⭐⭐"></a>TCP 三次握手的过程？为什么要三次握手？⭐⭐</h4><p>初始 A 和 B 均处于 CLOSED 状态，B 创建传输进程控制块 TCB 并进入 LISTEND 状态，监听端口是否收到连接请求。</p>
+<p>A 向 B 发送连接请求报文，SYN=1，ACK=0，SYN 不可以携带数据，但要消耗一个序号，发送后 A 进入 SYN-SENT 同步已发送状态。</p>
+<p>B 收到 A 的连接请求报文后，进入 SYN-RCVD 同步已接收状态，如果同意建立连接就会发送给 A 一个连接响应报文，SYN=1，ACK=1，ACK 可以携带数据，不携带的话则不消耗序号。</p>
+<p>A 收到 B 的确认后还要对该确认再进行一次确认，发送后 A 进入 ESTABLISHED 状态，B 接收到该报文后也进入 ESTABLISHED 状态，客户端会稍早于服务器端建立连接。</p>
+<p>三次握手的原因：</p>
+<ul>
+<li><p>从信息对等角度看，AB 分别要确认自己和对方的发送、接收能力均正常。第二次握手后 B 还不能确定自己的发送和 A 的接收能力。</p>
+</li>
+<li><p>A 的超时连接请求可能会在双方释放连接后到达 B，B 会误以为是 A 发送了新的连接请求，然后创建连接，服务器资源被浪费。</p>
+</li>
+</ul>
+<hr>
+<h4 id="拥塞控制了解嘛？⭐"><a href="#拥塞控制了解嘛？⭐" class="headerlink" title="拥塞控制了解嘛？⭐"></a>拥塞控制了解嘛？⭐</h4><p>网络中对资源的需求超过可用量的情况就叫拥塞，当吞吐量明显小于理想吞吐量时就出现了轻度拥塞。拥塞控制就是减少注入网络的数据，减轻路由器和链路的负担，这是一个全局性问题，涉及网络中的所有路由器和主机，而流量控制是一个端到端的问题。</p>
+<p>TCP 的拥塞控制算法包括了慢启动、拥塞避免和快恢复。慢启动和拥塞避免是 TCP 的强制部分，差异在于对收到的 ACK 做出反应时拥塞窗口增加的方式，慢启动比拥塞避免增加得更快。快恢复是推荐部分，对 TCP 发送方不是必须的。</p>
+<p>慢启动：拥塞窗口 cwnd 以一个 MSS 最大报文段开始，每当传输的报文段首次被确认就增加一个 MSS。因此每经过一个 RTT 往返时间，拥塞窗口就会翻倍，发送速率也会翻倍。结束慢启动的情况：① 发生超时事件，发送方将 cwnd 设为 1，重新开始慢启动，并将慢启动阈值设置为 cwnd/2。② 当拥塞窗口达到慢启动阈值时就结束慢启动而进入拥塞避免模式。③ 如果检测到三个冗余的 ACK，TCP 就会执行快重传并进入快恢复状态。</p>
+<p>拥塞避免：一旦进入拥塞避免状态，cwnd 值大约是上次拥塞时的 1/2，距离拥塞并不遥远。因此 TCP 不会每经过一个 RTT 就将 cwnd 翻倍，而是较为保守地在每个 RTT 后将 cwnd 加 1。发生超时事件时，拥塞避免和慢启动一样，将 cwnd 设为 1，并将慢启动阈值设置为 cwnd/2。</p>
+<p>快恢复：有时个别报文段丢失，但网络中并没有出现拥塞，如果使用慢启动会降低传输效率。这时应该使用快重传来让发送方尽早知道出现了个别分组的丢失，快重传要求接收端不要等待自己发送数据时再捎带确认，而是要立即发送确认。即使收到了乱序的报文段也要立即发出对已收到报文段的重复确认。当发送方连续收到三个冗余 ACK 后就知道出现了报文段丢失的情况，会立即重传并进入快恢复状态。在快恢复中，会调整慢启动阈值为 cwnd/2，并进入拥塞避免状态。</p>
+<hr>
+<h4 id="滑动窗口怎么变化的？⭐"><a href="#滑动窗口怎么变化的？⭐" class="headerlink" title="滑动窗口怎么变化的？⭐"></a>滑动窗口怎么变化的？⭐</h4><p>滑动窗口以字节为单位。发送端有一个发送窗口，窗口中的序号是允许发送的序号，窗口的后沿是已发送且确认的序号，窗口的前沿是不允许发送的序号。窗口的后沿可能不动（没有收到新的确认），也有可能前移（收到了新的确认），但不会后移（不可能撤销已经确认的数据）。窗口的前沿一般是向前的，可能不动（没有收到新的请求或对方的接收窗口变小），也可能收缩（TCP 强烈不建议这么做，因为发送端在收到通知前可能已经发送了很多数据，将产生错误）。</p>
+<hr>
+<h4 id="TCP-四次挥手的过程？为什么要四次挥手？⭐"><a href="#TCP-四次挥手的过程？为什么要四次挥手？⭐" class="headerlink" title="TCP 四次挥手的过程？为什么要四次挥手？⭐"></a>TCP 四次挥手的过程？为什么要四次挥手？⭐</h4><p>当 A 没有要发送的数据时就会向 B 发送终止连接报文，FIN=1，发送后 A 进入 FIN-WAIT-1 状态。</p>
+<p>B 收到后发给 A 一个确认报文，A 进入 FIN-WAIT-2 状态，B 进入 CLOSE-WAIT 状态，TCP 进于半关闭状态。</p>
+<p>当 B 也准备释放连接时就向 A 发送连接终止报文，FIN=1，重发 ACK=1，之后 B 进入 LAST-ACK 状态。</p>
+<p>A 收到后要再进行一次确认，ACK=1，之后进入 TIME-WAIT 状态，等待 2MSL 后进入 CLOSED 状态。B 收到确认后进入 CLOSED 状态。</p>
+<p>四次挥手的原因：TCP 是全双工通信，两个方向的连接需要单独断开。</p>
+<p>等待 2MSL 的原因：</p>
+<ul>
+<li><p>MSL 是最大报文段寿命，等待 2MSL 可以保证 A 发送的最后一个确认报文被 B 接收，如果该报文丢失，B 会超时重传之前的 FIN+ACK 报文，保证 B 正常进入 CLOSED 状态。</p>
+</li>
+<li><p>2MSL 后，本连接中的所有报文就都会从网络中消失，防止已失效请求造成异常。</p>
+</li>
+</ul>
+<hr>
+<h4 id="TCP-和-UDP-的区别？⭐"><a href="#TCP-和-UDP-的区别？⭐" class="headerlink" title="TCP 和 UDP 的区别？⭐"></a>TCP 和 UDP 的区别？⭐</h4><p>① TCP 是面向连接的，发送数据前必须先建立连接，发送某些预备报文段；UDP 无连接，发送数据前不需要建立连接。</p>
+<p>② TCP 连接是点对点的，只能是单个发送方和单个接收方之间的连接；UDP 支持一对一、一对多和多对多通信。</p>
+<p>③ TCP 提供可靠的交付服务，通过 TCP 传送的数据无差错、不丢失、不重复，按序到达；UDP 使用尽最大努力交付，不保证可靠性，主机不需要维持复杂的连接状态。</p>
+<p>④ TCP 是面向字节流的，TCP 不保证接收方的数据块和发送方的数据块具有对应大小的关系，但接收方的字节流必须和发送方的字节流完全一样。应用程序必须有能力识别收到的字节流，把它还原成应用层数据；UDP 面向报文，对应用层报文添加首部后就交付 IP 层。</p>
+<p>⑤ TCP 有拥塞控制；UDP 没有拥塞控制，网络拥塞不会降低源主机的发送速率，这对某些实时应用很重要，如视频会议。</p>
+<hr>
+<h4 id="HTTP-和-HTTPS？⭐"><a href="#HTTP-和-HTTPS？⭐" class="headerlink" title="HTTP 和 HTTPS？⭐"></a>HTTP 和 HTTPS？⭐</h4><p>HTTP 超文本传输协议，由客户程序和服务器程序实现，客户程序和服务器程序通过交换 HTTP 报文进行会话。HTTP 定义了这些报文的结构以及报文交换的方式，当用户请求一个 Web 页面时，浏览器向服务器发出对该页面中所包含对象的 HTTP 请求报文，服务器接收请求并返回包含这些对象的 HTTP 响应报文。</p>
+<p>HTTP over SSL，在 HTTP 传输上增加了 SSL 安全套接字层，通过机密性、数据完整性、身份鉴别为 HTTP 事务提供安全保证。SSL 会对数据进行加密并把加密数据送往 TCP 套接字，在接收方，SSL 读取 TCP 套接字的数据并解密，把数据交给应用层。HTTPS 采用混合加密机制，使用非对称加密传输对称密钥保证传输安全，使用对称加密保证通信效率。</p>
+<hr>
+<h4 id="HTTPS-过程？⭐"><a href="#HTTPS-过程？⭐" class="headerlink" title="HTTPS 过程？⭐"></a>HTTPS 过程？⭐</h4><p>① 客户发送它支持的算法列表以及一个不重数。不重数就是在协议的生存期只使用一次的数，用于防止重放攻击，每个 TCP 会话使用不同的不重数，可以使加密密钥不同，重放记录无法通过完整性检查。</p>
+<p>② 服务器从该列表中选择一种对称加密算法（例如 AES），一种公钥加密算法（例如 RSA）和一种报文鉴别码算法，然后把它的选择、证书，一个不重数返回给客户。</p>
+<p>③ 客户通过 CA 提供的公钥验证证书，成功后提取服务器的公钥，生成一个前主密钥 PMS 并发送给服务器。</p>
+<p>④ 客户和服务器独立地从 PMS 和不重数中计算出仅用于当前会话的主密钥 MS，然后通过 MS 生成密码和报文鉴别码密钥。此后客户和服务器间发送的所有报文均被加密和鉴别。</p>
+<hr>
+<h2 id="操作系统4"><a href="#操作系统4" class="headerlink" title="操作系统4"></a>操作系统4</h2><h4 id="有一些任务紧急的进程需要执行，采用什么调度算法？你还知道哪些调度算法？⭐⭐⭐"><a href="#有一些任务紧急的进程需要执行，采用什么调度算法？你还知道哪些调度算法？⭐⭐⭐" class="headerlink" title="有一些任务紧急的进程需要执行，采用什么调度算法？你还知道哪些调度算法？⭐⭐⭐"></a>有一些任务紧急的进程需要执行，采用什么调度算法？你还知道哪些调度算法？⭐⭐⭐</h4><p>可以采用优先级调度，使用剥夺式。</p>
+<p>① 先来先服务 FCFS，从后备队列选择最先进入的作业，调入内存。</p>
+<p>② 短作业优先 SJF，从后备队列选择估计运行时间最短的作业，调入内存。平均等待时间、平均周转时间最少。</p>
+<p>③ 优先级调度算法，分为非剥夺式和剥夺式。</p>
+<p>④ 高响应比优先算法，综合了 FCFS 和 SJF，同时考虑了每个作业的等待时间和估计的运行时间。</p>
+<p>⑤ 时间片轮转算法，遵循先来先服务原则，但是一次只能运行一个固定的时间片。</p>
+<hr>
+<h4 id="什么是原语？⭐"><a href="#什么是原语？⭐" class="headerlink" title="什么是原语？⭐"></a>什么是原语？⭐</h4><p>若干指令组成的程序段，用来实现某个特定功能，具有原子性，在执行过程中不可中断。P 是阻塞原语，将进程从运行态转为阻塞态，直到另一个进程唤醒它；V 是唤醒原语，将被阻塞的进程唤醒。</p>
+<hr>
+<h4 id="Linux-中进程有哪些状态？⭐"><a href="#Linux-中进程有哪些状态？⭐" class="headerlink" title="Linux 中进程有哪些状态？⭐"></a>Linux 中进程有哪些状态？⭐</h4><p>① 可执行状态，正在运行或等待运行。② 可中断的等待状态。③ 不可中断的等待状态。④ 停止状态。⑤ 终止状态（僵尸进程）。</p>
+<hr>
+<h4 id="进程包含什么？⭐"><a href="#进程包含什么？⭐" class="headerlink" title="进程包含什么？⭐"></a>进程包含什么？⭐</h4><p>① 进程控制块 PCB ：进程存在的唯一标识，包括进程描述信息、控制信息、资源分配信息等。 </p>
+<p>② 程序段：能被进程调度到 CPU 执行的代码。  </p>
+<p>③ 数据段：进程对应的程序加工处理的原始数据。</p>
+<hr>
+<h2 id="Linux7"><a href="#Linux7" class="headerlink" title="Linux7"></a>Linux7</h2><h4 id="打包命令？⭐⭐⭐"><a href="#打包命令？⭐⭐⭐" class="headerlink" title="打包命令？⭐⭐⭐"></a>打包命令？⭐⭐⭐</h4><p>tar。</p>
+<hr>
+<h4 id="查看当前进程？⭐⭐⭐"><a href="#查看当前进程？⭐⭐⭐" class="headerlink" title="查看当前进程？⭐⭐⭐"></a>查看当前进程？⭐⭐⭐</h4><p>ps。</p>
+<hr>
+<h4 id="如何查看文件？cat-和-more-的区别？⭐⭐"><a href="#如何查看文件？cat-和-more-的区别？⭐⭐" class="headerlink" title="如何查看文件？cat 和 more 的区别？⭐⭐"></a>如何查看文件？cat 和 more 的区别？⭐⭐</h4><p>cat、more、less。cat 一次性显示全部文件，more 是以页的形式查看。</p>
+<hr>
+<h4 id="压缩命令？⭐⭐"><a href="#压缩命令？⭐⭐" class="headerlink" title="压缩命令？⭐⭐"></a>压缩命令？⭐⭐</h4><p>① zip/unzip：压缩文件/解压缩，兼容 Linux 与 Windows，可以压缩多个文件或目录。</p>
+<p>② gzip/gunzip：压缩文件/解压缩 gzip 文件，压缩单个文件，压缩率相对低，CPU 开销低。</p>
+<p>③ xz/unxz：压缩/解压缩 xz 文件，压缩单个文件，压缩率高，时间相对长，解压快，CPU 开销高。</p>
+<hr>
+<h4 id="如何查看文件后-10-行？⭐⭐"><a href="#如何查看文件后-10-行？⭐⭐" class="headerlink" title="如何查看文件后 10 行？⭐⭐"></a>如何查看文件后 10 行？⭐⭐</h4><p>tail - n 10</p>
+<hr>
+<h4 id="vim-和-cat-的区别？⭐⭐"><a href="#vim-和-cat-的区别？⭐⭐" class="headerlink" title="vim 和 cat 的区别？⭐⭐"></a>vim 和 cat 的区别？⭐⭐</h4><p>vim 可以编辑文件内容，cat 只能查看。</p>
+<hr>
+<h4 id="列出文件命令？按时间的选项是什么？⭐"><a href="#列出文件命令？按时间的选项是什么？⭐" class="headerlink" title="列出文件命令？按时间的选项是什么？⭐"></a>列出文件命令？按时间的选项是什么？⭐</h4><p>ls，-t。</p>
+<hr>
+<h2 id="MySQL14"><a href="#MySQL14" class="headerlink" title="MySQL14"></a>MySQL14</h2><h4 id="隔离级别？⭐⭐⭐⭐⭐⭐"><a href="#隔离级别？⭐⭐⭐⭐⭐⭐" class="headerlink" title="隔离级别？⭐⭐⭐⭐⭐⭐"></a>隔离级别？⭐⭐⭐⭐⭐⭐</h4><p>未提交读：事务中的修改即使没有提交，对其他事务也是可见的。事务可以读取其他事务修改完但未提交的数据，这种问题称为脏读。这个级别还存在不可重复读和幻读，很少使用。</p>
+<p>提交读：多数数据库的默认隔离级别，事务只能看见已提交事务的修改。存在不可重复读，两次执行同样的查询可能会得到不同结果。</p>
+<p>可重复读（MySQL默认的隔离级别）：解决了不可重复读，保证同一个事务中多次读取同样的记录结果一致，InnoDB 通过 MVCC 解决。但无法解决幻读，幻读指当某个事务在读取某个范围内的记录时，会产生幻行。</p>
+<p>可串行化：最高隔离级别，通过强制事务串行执行避免幻读。在读取的每一行数据上都加锁，可能导致大量的超时和锁争用的问题。实际很少使用，只有非常需要确保数据一致性时考虑。</p>
+<hr>
+<h4 id="事务？⭐⭐⭐⭐⭐"><a href="#事务？⭐⭐⭐⭐⭐" class="headerlink" title="事务？⭐⭐⭐⭐⭐"></a>事务？⭐⭐⭐⭐⭐</h4><p>事务是一组原子性的 SQL 语句，当有任何一条语句因崩溃或其他原因无法执行时，所有语句都不会执行。事务内的语句要么全部执行成功，要么全部执行失败。</p>
+<p>原子性：一个事务在逻辑上是必须不可分割的最小单元，整个事务中的所有操作要么全部成功，要么全部失败。</p>
+<p>一致性：数据库总是从一个一致性的状态转换到另一个一致性的状态。</p>
+<p>隔离性：针对并发事务而言，要隔离并发运行的多个事务之间的影响，数据库提供了多种隔离级别。</p>
+<p>持久性：一旦事务提交成功，其修改就会永久保存到数据库中，此时即使系统崩溃，修改的数据也不会丢失。</p>
+<hr>
+<h4 id="内连接、左连接和外连接？⭐⭐⭐⭐"><a href="#内连接、左连接和外连接？⭐⭐⭐⭐" class="headerlink" title="内连接、左连接和外连接？⭐⭐⭐⭐"></a>内连接、左连接和外连接？⭐⭐⭐⭐</h4><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>左外连接</td>
+<td>以左表为主表，可以查询左表存在而右表为 null 的记录。</td>
+</tr>
+<tr>
+<td>右外连接</td>
+<td>以右表为主表，可以查询右表存在而左表为 null 的记录。</td>
+</tr>
+<tr>
+<td>内连接</td>
+<td>查询左右表同时满足条件的记录，两边都不可为 null。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h4 id="存储引擎？⭐⭐⭐"><a href="#存储引擎？⭐⭐⭐" class="headerlink" title="存储引擎？⭐⭐⭐"></a>存储引擎？⭐⭐⭐</h4><p><strong>InnoDB</strong></p>
+<p>① MySQL5.1 开始的默认引擎，最大的优点是支持事务和外键，InnoDB 的性能和自动崩溃恢复特性使它在非事务型需求中也很流行，一般应该优先考虑使用 InnoDB。② 底层存储结构是 B+ 树，每个节点都对应 InnoDB 的一个页。非叶子节点只有 key 值，叶子节点包含完整的数据。③ 支持行锁，采用 MVCC 支持高并发，实现了四个标准的隔离级别，默认级别是可重复读，通过间隙锁防止幻读。④ 基于聚簇索引，对主键查询有很高的性能。⑤ 内部做了很多优化，例如加速读操作的自适应哈希索引、加速插入操作的缓冲区等。</p>
+<p><strong>MyISAM</strong></p>
+<p>① MySQL5.1及之前的默认引擎，提供的特性包括全文索引、空间索引等，不支持事务、行锁和外键。② 最大的缺陷是崩溃后无法恢复，在插入和更新数据时需要锁定整张表，效率低。③ 对于只读的数据或者表比较小、可以忍受修复操作的情况可以使用 MyISAM。</p>
+<p><strong>Memory</strong></p>
+<p>① 如果需要快速访问数据且这些数据不会被修改，重启以后丢失也没有关系，可以使用 Memory 表。② 数据保存在内存，不需要磁盘 IO，表的结构在重启后会保留，数据会丢失。③ 支持哈希索引，查找速度快。④ 使用表锁，并发性能低。</p>
+<hr>
+<h4 id="索引失效的情况？⭐⭐⭐"><a href="#索引失效的情况？⭐⭐⭐" class="headerlink" title="索引失效的情况？⭐⭐⭐"></a>索引失效的情况？⭐⭐⭐</h4><p>① 隐式类型转换，常见情况是在 SQL 的 WHERE 条件中字段类型为字符串，其值为数值，如果没有加引号那么 MySQL 不会使用索引。</p>
+<p>② 如果条件中 OR 只有部分列使用了索引，索引会失效。</p>
+<p>③ 执行 LIKE 操作时，最左匹配会被转换为比较操作，但如果以通配符开头，存储引擎就无法做比较，。索引失效</p>
+<p>④ 如果查询中的列不是独立的，则 MySQL 不会使用索引。独立的列是指索引列不能是表达式的一部分，也不能是函数的参数。</p>
+<p>⑤ 对于多个范围条件查询，MySQL 无法使用第一个范围列后面的其他索引列，对于多个等值查询则没有这种限制。</p>
+<p>⑥ 如果 MySQL 判断全表扫描比使用索引查询更快，则不会使用索引。</p>
+<hr>
+<h4 id="聚簇索引是什么？⭐⭐⭐"><a href="#聚簇索引是什么？⭐⭐⭐" class="headerlink" title="聚簇索引是什么？⭐⭐⭐"></a>聚簇索引是什么？⭐⭐⭐</h4><p>聚簇索引不是一种索引类型，而是一种数据存储方式。InnoDB 的聚簇索引实际上在同一个结构中保存了 B 树索引和数据行。当表有聚簇索引时，它的行数据实际上存放在索引的叶子页中，由于无法同时把数据行存放在两个不同的地方，所以一个表只能有一个聚簇索引。</p>
+<p>优点：可以把相关数据保存在一起；将索引和数据保存在同一个 B 树中，获取数据比非聚簇索引要更快。</p>
+<p>缺点：如果数据全部在内存中会失去优势；更新代价高，强制每个被更新的行移动到新位置；插入行或主键更新时，可能导致页分裂，占用更多磁盘空间。</p>
+<hr>
+<h4 id="查询优化？⭐⭐⭐"><a href="#查询优化？⭐⭐⭐" class="headerlink" title="查询优化？⭐⭐⭐"></a>查询优化？⭐⭐⭐</h4><p>① 避免全表扫描：考虑在 WHERE 和 ORDER BY 涉及的列上建立索引，IN 和 NOT IN 也要慎用，尽量用 BETWEEN 取代。</p>
+<p>② 优化 COUNT：某些业务不要求完全精确的 COUNT 值，此时可以使用近似值来代替，EXPLAIN 估算的行数就是一个不错的近似值。</p>
+<p>③ 避免子查询：在 MySQL5.5 及以下版本避免子查询，因为执行器会先执行外部的 SQL 再执行内部的 SQL，可以用关联查询代替。</p>
+<p>④ 禁止排序：当查询使用 GROUP BY 时，结果集默认会按照分组字段排序，如果不关心顺序，可以使用 ORDER BY NULL 禁止排序。</p>
+<p>⑤ 优化分页：从上一次取数据的位置开始扫描，避免使用 OFFSET。</p>
+<p>⑥ 优化 UNION：MySQL 通过创建并填充临时表的方式来执行 UNION 查询，除非确实需要消除重复的行，否则使用 UNION ALL，如果没有 ALL 关键字，MySQL 会给临时表加上 DISTINCT 选项，对整个临时表的数据做唯一性检查，代价非常高。</p>
+<p>⑦ 使用用户自定义变量：用户自定义变量是一个用来存储内容的临时容器，在连接 MySQL 的整个过程中都存在，可以在任何可以使用表达式的地方使用自定义变量，避免重复查询刚刚更新过的数据。</p>
+<hr>
+<h4 id="delete、drop、truncate的区别？⭐⭐"><a href="#delete、drop、truncate的区别？⭐⭐" class="headerlink" title="delete、drop、truncate的区别？⭐⭐"></a>delete、drop、truncate的区别？⭐⭐</h4><p>delete 可以删除部分数据也可以删除全部数据，和 truncate 一样只删除数据而不删除表的结构，drop 会删除表的结构。</p>
+<p>delete 是 DML 操作，可以进行回滚；drop 和 truncate 是 DDL，不能进行回滚。 </p>
+<p>速度来说，一般 drop &gt; truncate &gt; delete。</p>
+<hr>
+<h4 id="视图的优点？⭐"><a href="#视图的优点？⭐" class="headerlink" title="视图的优点？⭐"></a>视图的优点？⭐</h4><p>视图是一个虚拟表，是存储在数据库中的查询 SQL 语句，视图只是一个逻辑，具体结果在引用视图时动态生成。</p>
+<p>优点：① 具有安全性，可以进行权限控制，创建只读视图，公开给特定用户。② 可以简化复杂的查询，保存其逻辑。</p>
+<hr>
+<h4 id="有哪些索引？⭐⭐"><a href="#有哪些索引？⭐⭐" class="headerlink" title="有哪些索引？⭐⭐"></a>有哪些索引？⭐⭐</h4><p>B-Tree：大多数引擎都支持这种索引，但底层使用不同结构，例如 NDB 使用 T-Tree，InnoDB 使用 B+ Tree。所有的值都是顺序存储的，并且每个叶子页到根的距离相同。B-Tree 索引能够加快访问数据的速度，存储引擎不再需要进行全表扫描来获取数据，而是从索引的根节点开始搜索。根节点的槽中存放了指向子节点的指针，存储引擎根据这些指针向下层查找。叶子节点的指针指向的是被索引的数据，而不是其他节点页。</p>
+<p>Hash： 哈希索引基于哈希表实现，只有精确匹配索引所有列的查询才有效。对于每一行数据，存储引擎都会对所有的索引列计算一个哈希码，索引自身只需存储对应的哈希值，所以索引结构十分紧凑，这让哈希索引的速度非常快。</p>
+<p>空间索引：MyISAM 的一个特殊索引类型，用作地理数据存储。</p>
+<p>全文索引：MyISAM 的一个特殊的 B-Tree 索引，一共有两层。第一层是所有关键字，然后对于每一个关键字的第二层，包含的是一组相关的文档指针。用于通过关键字匹配进行查询。</p>
+<hr>
+<h4 id="数据库范式？⭐⭐"><a href="#数据库范式？⭐⭐" class="headerlink" title="数据库范式？⭐⭐"></a>数据库范式？⭐⭐</h4><p>范式是数据库设计规范，范式越高则数据库冗余越小，但查询也更复杂，一般只需满足第三范式。</p>
+<table>
+<thead>
+<tr>
+<th>范式</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第一范式</td>
+<td>每列都是不可再分的数据单元。</td>
+</tr>
+<tr>
+<td>第二范式</td>
+<td>在第一范式的基础上消除部分依赖，非主键列完全依赖于主键列。</td>
+</tr>
+<tr>
+<td>第三范式</td>
+<td>在第二范式的基础上消除传递依赖，非主键列只依赖于主键列。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h4 id="索引建立的规范？⭐⭐"><a href="#索引建立的规范？⭐⭐" class="headerlink" title="索引建立的规范？⭐⭐"></a>索引建立的规范？⭐⭐</h4><p>控制数量：索引越多代价越高，对于 DML 频繁的表，索引过多会导致很高的维护代价。</p>
+<p>使用短索引：假如构成索引的字段长度比较短，那么在储块内就可以存储更多的索引，提升访问索引的 IO 效率。</p>
+<p>建立索引：对查询频次较高且数据量比较大的表建立索引。如果 WHERE 子句中的组合比较多，应当挑选最常用、过滤效果最好的列的组合。业务上具有唯一特性的字段，即使是多个字段的组合，也必须建成唯一索引。</p>
+<p>使用前缀索引：对于 BLOB、TEXT 或很长的 VARCHAR 列必须使用前缀索引，MySQL 不允许索引这些列的完整长度。</p>
+<p>合适的索引顺序：当不需要考虑排序和分组时，将选择性最高的列放在前面。索引的选择性是指不重复的索引值和数据表的记录总数之比，索引的选择性越高则查询效率越高。</p>
+<p>删除重复索引：MySQL 允许在相同列上创建多个索引，重复索引需要单独维护。</p>
+<hr>
+<h4 id="游标是什么？⭐"><a href="#游标是什么？⭐" class="headerlink" title="游标是什么？⭐"></a>游标是什么？⭐</h4><p>游标是处理数据的一种方法，为了查看或者处理结果集中的数据，游标提供了在结果集中一次一行或者多行前进或向后浏览数据的能力。可以把游标当作一个指针，它可以指定结果中的任何位置，然后允许用户对指定位置的数据进行处理。</p>
+<hr>
+<h4 id="MySQL-有哪些聚合函数？⭐"><a href="#MySQL-有哪些聚合函数？⭐" class="headerlink" title="MySQL 有哪些聚合函数？⭐"></a>MySQL 有哪些聚合函数？⭐</h4><p>① max 求最大值。② min 求最小值。③ count 统计数量。④ avg 求平均值。⑤ sum 求和。</p>
+<hr>
+<h2 id="Redis5"><a href="#Redis5" class="headerlink" title="Redis5"></a>Redis5</h2><h4 id="Redis有哪些数据类型？⭐⭐⭐"><a href="#Redis有哪些数据类型？⭐⭐⭐" class="headerlink" title="Redis有哪些数据类型？⭐⭐⭐"></a>Redis有哪些数据类型？⭐⭐⭐</h4><p>可以使用 <code>type</code> 查看键的数据结构，包括：string、hash、list、set、zset，这些是 Redis 对外的数据结构。实际上每种数据结构都有底层的内部编码，Redis 根据场景选择合适的内部编码，可以使用 <code>object encoding</code> 查看。</p>
+<p><strong>string</strong> </p>
+<p>概念：键是字符串，值可以是字符串（JSON，XML）、数字（整形、浮点数）、二进制（图片、音频、视频），最大不超过 512 MB。</p>
+<p>命令：set、get、setex、setnx、mset、mget、incr、decr。</p>
+<p>内部编码：① int（&lt; 8B）。② embstr（不大于 39 字节）。③ raw（大于 39 字节）。</p>
+<p>应用场景：① 缓存：Redis 作为缓存，MySQL 作为存储层，首先从 Redis 获取数据，如果失败就从 MySQL 获取并将结果写回 Redis 并添加过期时间。② 计数：Redis 可以实现快速计数功能，例如视频每播放一次就用 incr 把播放数加 1。③ 共享 Session：一个分布式 Web 服务将用户的 Session 信息保存在各自服务器，但会造成一个问题，出于负载均衡的考虑，分布式服务会将用户的访问负载到不同服务器上，用户刷新一次可能会发现需要重新登陆。为解决该问题，可以使用 Redis 将用户的 Session 进行集中管理，每次用户更新或查询登录信息都直接从 Redis 获取。</p>
+<p><strong>hash</strong> </p>
+<p>概念：键值本身又是一个键值对结构，哈希类型中的映射关系叫 field-value， value 是指 field 对应的值而不是键对应的值。</p>
+<p>命令：hset、hget、hdel、hlen、hexists。</p>
+<p>内部编码：① ziplist（field &lt;= 512 且 value &lt;= 64B）。② hashtable（field &gt; 512 或 value &gt; 64B）。</p>
+<p><strong>list</strong> </p>
+<p>概念：存储多个有序字符串，每个字符串称为元素，一个列表最多可以存储 2^32^-1 个元素。可以对列表两端插入和弹出，还可以获取指定范围的元素列表、获取指定索引的元素等。列表是一种比较灵活的数据结构，可以充当栈和队列，在实际开发中有很多应用场景。list 有两个特点：① 元素有序，可以通过索引获取某个元素或某个范围的元素。② 元素可以重复。</p>
+<p>命令：lpush、rpop、lrange、lindex、llen。</p>
+<p>内部编码：① ziplist（key &lt;= 512 且 value &lt;= 64B）。② linkedlist（key &gt; 512 或 value &gt; 64B）。③ quicklist。</p>
+<p>应用场景：lpush + lpop = 栈、lpush + rpop  = 队列、lpush + ltrim = 优先集合、lpush + brpop = 消息队列。</p>
+<p><strong>set</strong> </p>
+<p>概念：保存多个字符串元素，和 list 不同的是集合不允许有重复元素，并且集合中的元素是无序的，不能通过索引下标获取元素。一个集合最多可以存储 2^32^-1 个元素。Redis 除了支持集合内的增删改查，还支持多个集合取交集、并集、差集。</p>
+<p>命令：sadd、sremove、scard、sismember、spop。</p>
+<p>内部编码包括：① intset（key &lt;= 512 且 element 是整数）。② hashtable（key &gt; 512 或 element 不是整数）。</p>
+<p>应用场景：sadd = 标签、spop = 生成随机数，比如抽奖、sinter = 社交需求。</p>
+<p><strong>zet</strong> </p>
+<p>概念：有序集合保留了集合不能有重复成员的特性，不同的是可以排序。但是它和 list 使用索引下标作为排序依据不同的是，他给每个元素设置一个分数（score）作为排序的依据。有序集合提供了获取指定分数和元素查询范围、计算成员排名等功能。</p>
+<p>命令：zadd、zremove、zscore、zrank、zcount。</p>
+<p>内部编码：① ziplist（key &lt;= 128 且 member &lt;= 64B）。② skiplist（key &gt; 128 或 member &gt; 64B）。</p>
+<p>应用场景：有序集合的典型使用场景就是排行榜系统，例如用户上传了一个视频并获得了赞，可以使用 zadd 和 zincrby。如果需要将用户从榜单删除，可以使用 zrem。如果要展示获取赞数最多的十个用户，可以使用 zrange。</p>
+<hr>
+<h4 id="更新策略有哪些？⭐"><a href="#更新策略有哪些？⭐" class="headerlink" title="更新策略有哪些？⭐"></a>更新策略有哪些？⭐</h4><p>算法剔除：① FIFO 先进先出，判断存储时间，离当前时间最远的数据优先淘汰。② LRU 最近最少使用，判断最近使用时间，离当前时间最远的数据优先被淘汰。③ LFU 最不常用，被使用次数最少的数据优先淘汰。每个数据块都有一个引用计数，按照引用计数排序，具有相同计数的数据块按时间排序。数据一致性最差。</p>
+<p>超时剔除：给缓存设置过期时间，例如 Redis 的 expire 命令。数据一致性较差。</p>
+<p>主动更新：在真实数据更新后立即更新缓存，可以利用消息系统实现。数据一致性强，但可能导致脏数据，建议结合超时剔除使用。</p>
+<hr>
+<h4 id="缓存穿透是什么？⭐"><a href="#缓存穿透是什么？⭐" class="headerlink" title="缓存穿透是什么？⭐"></a>缓存穿透是什么？⭐</h4><p>缓存穿透指查询不存在的数据，缓存层和存储层都不会命中，导致不存在的数据每次请求都要到存储层查询，可能会使后端负载增大。</p>
+<p>解决：① 缓存空对象，如果一个查询返回结果为 null，仍然缓存，为其设置很短的过期时间。② 布隆过滤器，将所有可能存在的数据映射到一个足够大的 Bitmap 中，在用户发起请求时首先经过布隆过滤器的拦截，一个一定不存在的数据会被拦截。</p>
+<hr>
+<h4 id="缓存击穿是什么？⭐⭐"><a href="#缓存击穿是什么？⭐⭐" class="headerlink" title="缓存击穿是什么？⭐⭐"></a>缓存击穿是什么？⭐⭐</h4><p>对于热数据的访问量非常大，在其缓存失效的瞬间，大量请求直达存储层，导致服务崩溃。</p>
+<p>解决：① 加锁互斥，当一个线程访问后，缓存数据会被重建。② 永不过期，为热点数据不设置过期时间。</p>
+<hr>
+<h4 id="缓存雪崩是什么？⭐"><a href="#缓存雪崩是什么？⭐" class="headerlink" title="缓存雪崩是什么？⭐"></a>缓存雪崩是什么？⭐</h4><p>如果缓存层因为某些问题不能提供服务，所有请求都会到达存储层，对数据库造成巨大压力。</p>
+<p>解决：① 保证高可用性，使用集群。② 依赖隔离组件为后端限流并降级，降级机制在高并发系统中使用普遍，例如在推荐服务中，如果个性化推荐服务不可用，可以降级补充热点数据，避免前端页面空白。③ 构建多级缓存，增加本地缓存，降低请求直达存储层概率。</p>
+<hr>
+<h2 id="数据结构和算法9"><a href="#数据结构和算法9" class="headerlink" title="数据结构和算法9"></a>数据结构和算法9</h2><h4 id="哪些排序是稳定的，哪些排序不稳定？⭐⭐⭐⭐⭐"><a href="#哪些排序是稳定的，哪些排序不稳定？⭐⭐⭐⭐⭐" class="headerlink" title="哪些排序是稳定的，哪些排序不稳定？⭐⭐⭐⭐⭐"></a>哪些排序是稳定的，哪些排序不稳定？⭐⭐⭐⭐⭐</h4><p>稳定：直接插入排序、冒泡排序、归并排序。</p>
+<p>不稳定：希尔排序、直接选择排序、堆、快速排序。</p>
+<hr>
+<h4 id="快速排序的思想？⭐⭐⭐⭐"><a href="#快速排序的思想？⭐⭐⭐⭐" class="headerlink" title="快速排序的思想？⭐⭐⭐⭐"></a>快速排序的思想？⭐⭐⭐⭐</h4><p>快速排序属于交换排序，是不稳定的排序算法。</p>
+<p>首先选择一个基准元素，通过一趟排序将要排序的数据分割成独立的两部分，一部分全部小于等于基准元素，一部分全部大于等于基准元素，再按此方法递归对这两部分数据进行快速排序。</p>
+<p>快速排序的一次划分从两头交替搜索，直到 low 和 high 指针重合，一趟时间复杂度 O(n)，整个算法的时间复杂度与划分趟数有关。最好情况是每次划分选择的中间数恰好将当前序列等分，经过 log(n) 趟划分便可得到长度为 1 的子表，这样时间复杂度 O(nlogn)。最坏情况是每次所选中间数是当前序列中的最大或最小元素，这使每次划分所得子表其中一个为空表 ，这样长度为 n 的数据表需要 n 趟划分，整个排序时间复杂度 O(n²)。</p>
+<hr>
+<h4 id="什么是满二叉树？⭐⭐"><a href="#什么是满二叉树？⭐⭐" class="headerlink" title="什么是满二叉树？⭐⭐"></a>什么是满二叉树？⭐⭐</h4><p>除最后一层无任何子节点外，每一层上的所有节点都有两个子节点的二叉树，第 n 层有 2^n-1^ 个节点，n 层一共有 2^n^-1 个节点。</p>
+<hr>
+<h4 id="红黑树是什么？⭐⭐"><a href="#红黑树是什么？⭐⭐" class="headerlink" title="红黑树是什么？⭐⭐"></a>红黑树是什么？⭐⭐</h4><p>红黑树本质上是二叉查找树，额外引入了 5 个约束条件：① 节点只能是红色或黑色。② 根节点必须是黑色。③ 所有 NIL 节点都是黑色的。④ 一条路径上不能出现相邻的红色节点。⑤ 在任何递归子树中，根节点到叶子节点的所有路径上包含相同数目的黑色节点。这五个条件保证了红黑树增删查的最坏时间复杂度均为 O(log~n~)。红黑树的任何旋转在 3 次之内均可完成。</p>
+<p>红黑树平衡性不如 AVL 树，它持的只是一种大致平衡，节点数相同的情况下，红黑树的高度可能更高，平均查找次数会高于 AVL 树。</p>
+<p>在插入时，红黑树和 AVL 树都能在至多两次旋转内恢复平衡，在删除时由于红黑树只追求大致平衡，因此至多三次旋转可以恢复平衡，而 AVL 树最多需要 O(log~n~) 次。面对频繁地插入与删除红黑树更加合适。</p>
+<hr>
+<h4 id="判断带-head-头节点的单链表为空的条件？⭐⭐⭐"><a href="#判断带-head-头节点的单链表为空的条件？⭐⭐⭐" class="headerlink" title="判断带 head 头节点的单链表为空的条件？⭐⭐⭐"></a>判断带 head 头节点的单链表为空的条件？⭐⭐⭐</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">head.next == head</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="B-树和-B-树的区别？⭐⭐⭐"><a href="#B-树和-B-树的区别？⭐⭐⭐" class="headerlink" title="B 树和 B+ 树的区别？⭐⭐⭐"></a>B 树和 B+ 树的区别？⭐⭐⭐</h4><p>B 树中每个节点同时存储 key 和 data，而 B+ 树中只有叶子节点才存储 data，非叶子节点只存储 key。InnoDB 对 B+ 树进行了优化，在每个叶子节点上增加了一个指向相邻叶子节点的链表指针，形成了带有顺序指针的 B+ 树，提高区间访问的性能。</p>
+<p>由于 B+ 树在非叶子节点上不含数据信息，因此在内存中能够存放更多的 key，数据存放得更紧密，利用率更高。</p>
+<p>B+ 树的叶子节点都是相连的，对整棵树的遍历只需要对叶子节点进行一次线性遍历，而 B 树则需要每层递归遍历。</p>
+<p>B 树的优点是，由于每个节点都包含 key 和 value，经常访问的元素可能离根节点更近，访问也更迅速。</p>
+<hr>
+<h4 id="什么是满二叉树？⭐⭐-1"><a href="#什么是满二叉树？⭐⭐-1" class="headerlink" title="什么是满二叉树？⭐⭐"></a>什么是满二叉树？⭐⭐</h4><p>除最后一层无任何子节点外，每一层上的所有节点都有两个子节点的二叉树，第 n 层有 2^n-1^ 个节点，n 层一共有 2^n^-1 个节点。</p>
+<hr>
+<h4 id="红黑树是什么？⭐⭐-1"><a href="#红黑树是什么？⭐⭐-1" class="headerlink" title="红黑树是什么？⭐⭐"></a>红黑树是什么？⭐⭐</h4><p>红黑树本质上是二叉查找树，额外引入了 5 个约束条件：① 节点只能是红色或黑色。② 根节点必须是黑色。③ 所有 NIL 节点都是黑色的。④ 一条路径上不能出现相邻的红色节点。⑤ 在任何递归子树中，根节点到叶子节点的所有路径上包含相同数目的黑色节点。这五个条件保证了红黑树增删查的最坏时间复杂度均为 O(log~n~)。红黑树的任何旋转在 3 次之内均可完成。</p>
+<p>红黑树平衡性不如 AVL 树，它持的只是一种大致平衡，节点数相同的情况下，红黑树的高度可能更高，平均查找次数会高于 AVL 树。</p>
+<p>在插入时，红黑树和 AVL 树都能在至多两次旋转内恢复平衡，在删除时由于红黑树只追求大致平衡，因此至多三次旋转可以恢复平衡，而 AVL 树最多需要 O(log~n~) 次。面对频繁地插入与删除红黑树更加合适。</p>
+<hr>
+<h4 id="什么是哈夫曼树？⭐"><a href="#什么是哈夫曼树？⭐" class="headerlink" title="什么是哈夫曼树？⭐"></a>什么是哈夫曼树？⭐</h4><p>给定 N 个权值构成 N 个节点，构建出一颗带权路径和最小的二叉树就是哈夫曼树。</p>
+<hr>
+<h2 id="Java-基础12"><a href="#Java-基础12" class="headerlink" title="Java 基础12"></a>Java 基础12</h2><h4 id="ArrayList-和-LinkedList的区别？⭐⭐"><a href="#ArrayList-和-LinkedList的区别？⭐⭐" class="headerlink" title="ArrayList 和 LinkedList的区别？⭐⭐"></a>ArrayList 和 LinkedList的区别？⭐⭐</h4><p>ArrayList 是容量可变列表，使用数组实现，扩容时会创建更大的数组，把原有数组复制到新数组。支持对元素的随机访问，但插入与删除速度慢。ArrayList 实现了 RandomAcess 接口，如果类实现了该接口，使用索引遍历比迭代器更快。</p>
+<p>LinkedList 本质是双向链表，与 ArrayList 相比增删速度更快，但随机访问慢。除继承 AbstractList 外还实现了 Deque 接口，该接口具有队列和栈的性质。成员变量被 transient 修饰，原理和 ArrayList 类似。优点是可以将零散的内存单元通过附加引用的方式关联起来，形成按链路顺序查找的线性结构，内存利用率高。</p>
+<hr>
+<h4 id="HashMap-和-HashTable-的区别？⭐⭐"><a href="#HashMap-和-HashTable-的区别？⭐⭐" class="headerlink" title="HashMap 和 HashTable 的区别？⭐⭐"></a>HashMap 和 HashTable 的区别？⭐⭐</h4><p>① HashMap 继承自 AbstractMap，HashTable 继承自 Dictionary。</p>
+<p>② HashMap 中键值都可以为 null，HashTable 的键值都不允许为 null。</p>
+<p>③ HashMap 线程不安全，HashTable 通过 synchronized 保证了线程安全。</p>
+<hr>
+<h4 id="重载和重写的区别？⭐⭐"><a href="#重载和重写的区别？⭐⭐" class="headerlink" title="重载和重写的区别？⭐⭐"></a>重载和重写的区别？⭐⭐</h4><p>重载指方法名称相同，但参数列表不同，是行为水平方向不同实现。对编译器来说，方法名称和参数列表组成了一个唯一键，称为方法签名，JVM 通过方法签名决定调用哪种重载方法。不管继承关系多复杂，重载在编译时可以确定调用哪个方法，因此属于静态绑定。重载顺序：① 精确匹配。② 基本数据类型自动转换成更大表示范围。③ 自动拆箱与装箱。④ 子类向上转型。⑤ 可变参数。</p>
+<p>重写指子类实现接口或继承父类时，保持方法签名完全相同，实现不同方法体，是行为垂直方向不同实现。元空间有一个方法表保存方法信息，如果子类重写父类的方法，方法表中的方法引用会指向子类。重写方法访问权限不能变小，返回类型和抛出的异常类型不能变大。</p>
+<hr>
+<h4 id="泛型和泛型擦除？⭐⭐"><a href="#泛型和泛型擦除？⭐⭐" class="headerlink" title="泛型和泛型擦除？⭐⭐"></a>泛型和泛型擦除？⭐⭐</h4><p>泛型本质是参数化类型，解决不确定对象具体类型的问题。</p>
+<p>泛型的好处：① 类型安全，不存在 ClassCastException。② 提升可读性，编码阶段就显式知道泛型集合、泛型方法等处理的数据类型。</p>
+<p>泛型用于编译阶段，编译后的字节码文件不包含泛型类型信息，因为虚拟机没有泛型类型对象，所有对象都属于普通类。例如定义 <code>List&lt;Object&gt;</code> 或 <code>List&lt;String&gt;</code>，在编译后都会变成 <code>List</code> 。</p>
+<hr>
+<h4 id="反射⭐⭐"><a href="#反射⭐⭐" class="headerlink" title="反射⭐⭐"></a>反射⭐⭐</h4><p>在运行状态中，对于任意一个类都能知道它的所有属性和方法，对于任意一个对象都能调用它的任意方法和属性，这种动态获取信息及调用对象方法的功能称为反射，缺点是破坏了封装性及泛型约束。</p>
+<hr>
+<h4 id="和-equals的区别？⭐"><a href="#和-equals的区别？⭐" class="headerlink" title="== 和 equals的区别？⭐"></a>== 和 equals的区别？⭐</h4><p><code>==</code> 既可以用于比较基本数据类型，又可以在对象之间进行比较。</p>
+<p><code>equals</code> 只能用于对象之间的比较，默认使用 <code>==</code> 比较，也可以重写自定义比较规则。</p>
+<hr>
+<h4 id="equals-和-hashCode-的关系？⭐"><a href="#equals-和-hashCode-的关系？⭐" class="headerlink" title="equals 和 hashCode 的关系？⭐"></a>equals 和 hashCode 的关系？⭐</h4><p>每个对象都有默认散列码，值由对象存储地址得出。字符串散列码由内容导出，值可能相同。为了在集合中正确使用，一般需要同时重写 equals 和 hashCode，要求 equals 相同 hashCode 必须相同，hashCode 相同 equals 未必相同。</p>
+<hr>
+<h4 id="Object-有哪些方法？⭐"><a href="#Object-有哪些方法？⭐" class="headerlink" title="Object 有哪些方法？⭐"></a>Object 有哪些方法？⭐</h4><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>equals</td>
+<td>检测对象是否相等，默认使用 <code>==</code> 比较，可以重写该方法自定义规则。</td>
+</tr>
+<tr>
+<td>hashCode</td>
+<td>每个对象都有默认散列码，值由对象存储地址得出。字符串散列码由内容导出，值可能相同。</td>
+</tr>
+<tr>
+<td>toString</td>
+<td>默认打印表示对象值的一个字符串。</td>
+</tr>
+<tr>
+<td>clone</td>
+<td>默认声明为 protected，只能由本类对象调用，且是浅拷贝。一般重写 clone 方法需要实现 Cloneable 接口并声明为 public，如果没有实现 Cloneable 接口会抛出 CloneNotSupport 异常。</td>
+</tr>
+<tr>
+<td>finalize</td>
+<td>GC 判断垃圾时，如果对象没有与 GC Roots 相连会被第一次标记，之后判断对象是否有必要执行 finalize 方法，有必要则由一条低调度优先级的 Finalizer 线程执行。虚拟机会触发该方法但不保证结束，防止方法执行缓慢或发生死循环。只要对象在 finalize 方法中重新与引用链相连，就会在第二次标记时移出回收集合。由于运行代价高且具有不确定性，在 JDK9 标记为过时方法。</td>
+</tr>
+<tr>
+<td>getClass</td>
+<td>返回对象所属类的 Class 对象。</td>
+</tr>
+<tr>
+<td>wait</td>
+<td>阻塞持有该对象锁的线程。</td>
+</tr>
+<tr>
+<td>notify</td>
+<td>唤醒持有该对象锁的线程，notify 随机唤醒一个线程，notifyAll 唤醒全部线程。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h4 id="Java-三大特性？⭐"><a href="#Java-三大特性？⭐" class="headerlink" title="Java 三大特性？⭐"></a>Java 三大特性？⭐</h4><p><strong>封装</strong>是对象功能内聚的表现形式，在抽象基础上决定信息是否公开及公开等级。主要任务是对属性、数据、敏感行为实现隐藏，使对象关系变得简单，降低耦合。</p>
+<p><strong>继承</strong>用来扩展类，子类可继承父类的部分属性和行为，使模块具有复用性。</p>
+<p><strong>多态</strong>以封装和继承为基础，根据运行时对象实际类型使同一行为具有不同表现形式。多态指在编译层面无法确定最终调用的方法体，在运行期由 JVM 动态绑定，调用合适的重写方法。由于重载属于静态绑定，本质上重载结果是完全不同的方法，因此多态一般专指重写。</p>
+<hr>
+<h4 id="序列化是什么？⭐"><a href="#序列化是什么？⭐" class="headerlink" title="序列化是什么？⭐"></a>序列化是什么？⭐</h4><p>Java 对象在 JVM 退出时会全部销毁，如果需要将对象持久化就要通过序列化实现，将内存中的对象保存在二进制流中，需要时再将二进制流反序列化为对象。对象序列化保存的是对象的状态，属于类属性的静态变量不会被序列化。</p>
+<p>常见的序列化有三种：① Java 原生序列化，实现 <code>Serializabale</code> 标记接口，兼容性最好，但不支持跨语言，性能一般。序列化和反序列化必须保持序列化 ID 的一致，一般使用 <code>private static final long serialVersionUID</code> 定义序列化 ID，如果不设置编译器会根据类的内部实现自动生成该值。② Hessian 序列化，支持动态类型、跨语言。③ JSON 序列化，将数据对象转换为 JSON 字符串，抛弃了类型信息，反序列化时只有提供类型信息才能准确进行。相比前两种方式可读性更好。</p>
+<p>序列化通常使用网络传输对象，容易遭受攻击，因此不需要进行序列化的敏感属性应加上 transient 关键字，把变量生命周期仅限于内存，不会写到磁盘。</p>
+<hr>
+<h4 id="Java-八大基本数据类型？⭐"><a href="#Java-八大基本数据类型？⭐" class="headerlink" title="Java 八大基本数据类型？⭐"></a>Java 八大基本数据类型？⭐</h4><table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>内存大小</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>byte</td>
+<td>1 B</td>
+</tr>
+<tr>
+<td>short</td>
+<td>2 B</td>
+</tr>
+<tr>
+<td>int</td>
+<td>4 B</td>
+</tr>
+<tr>
+<td>long</td>
+<td>8 B</td>
+</tr>
+<tr>
+<td>float</td>
+<td>4 B</td>
+</tr>
+<tr>
+<td>double</td>
+<td>8 B</td>
+</tr>
+<tr>
+<td>char</td>
+<td>英文 1B，中文 UTF-8 占 3B，GBK 占 2B。</td>
+</tr>
+<tr>
+<td>boolean</td>
+<td>单个变量 4B / 数组 1B</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h4 id="List、Set-和-Map-的区别？⭐"><a href="#List、Set-和-Map-的区别？⭐" class="headerlink" title="List、Set 和 Map 的区别？⭐"></a>List、Set 和 Map 的区别？⭐</h4><p>① List 和 Set 实现了 Collection 接口，List 的元素有序可重复、Set 的元素无序不可重复，Map 是以键值对存储元素的。</p>
+<p>② List 的实现包括 ArrayList（数组实现）、LinkedList（链表实现）、Vector（线程安全的 ArrayList） 和 Stack（继承 Vector，有栈的语义）。</p>
+<p>③ Set 的实现包括 HashSet（通过 HashMap 实现，元素就是 HashMap 的 Key，Value 是一个 Object 类型的常量）、LinkedHashSet（通过 LinkedHashMap 实现）和 TreeSet（可以对元素排序，通过实现 Compare 接口或 Comparator 接口）。</p>
+<p>④ Map 的实现主要包括 HashMap、LinkedHashMap（通过 LinkedList 维护插入顺序） 和 TreeMap（可以按 Key 排序，通过实现 Compare 接口或 Comparator 接口）。</p>
+<hr>
+<h2 id="JVM5"><a href="#JVM5" class="headerlink" title="JVM5"></a>JVM5</h2><h4 id="StackOverflow是怎么发生的？⭐"><a href="#StackOverflow是怎么发生的？⭐" class="headerlink" title="StackOverflow是怎么发生的？⭐"></a>StackOverflow是怎么发生的？⭐</h4><p>如果线程请求的栈深度大于虚拟机所允许的深度，将抛出 StackOverflowError，例如一个递归方法不断调用自己。该异常有明确错误堆栈可供分析，容易定位问题。</p>
+<hr>
+<h4 id="垃圾回收机制⭐"><a href="#垃圾回收机制⭐" class="headerlink" title="垃圾回收机制⭐"></a>垃圾回收机制⭐</h4><p><strong>判断垃圾</strong></p>
+<p>引用计数：在对象中添加一个引用计数器，如果被引用计数器加 1，引用失效时计数器减 1，如果计数器为 0 则被标记为垃圾。简单高效，但在 Java 中很少使用，因为存在对象循环引用的问题，导致计数器无法清零。</p>
+<p>可达性分析：通过一系列称为 GC Roots 的根对象作为起始节点集，从这些节点开始根据引用关系向下搜索，搜索过程走过的路径称为引用链，如果某个对象到 GC Roots 没有任何引用链相连则会被标记为垃圾。可作为 GC Roots 的对象包括：虚拟机栈和本地方法栈中引用的对象、类静态属性引用的对象、常量引用的对象。</p>
+<p><strong>GC 算法</strong></p>
+<p>标记清除：分为标记和清除阶段，首先从每个 GC Roots 出发依次标记有引用关系的对象，最后清除没有标记的对象。如果堆包含大量对象且大部分需要回收，必须进行大量标记清除，效率低。</p>
+<p>存在内存空间碎片化问题，分配大对象时容易触发 Full GC。</p>
+<p>标记复制：为解决内存碎片，将可用内存按容量划分为大小相等的两块，每次只使用其中一块，主要用于新生代。对象存活率高时要进行较多复制操作，效率低。如果不想浪费空间就需要有额外空间分配担保，老年代一般不使用此算法。</p>
+<p>标记整理：老年代使用标记整理算法，标记过程与标记清除算法一样，但不直接清理可回收对象，而是让所有存活对象都向内存空间一端移动，然后清理掉边界以外的内存。</p>
+<hr>
+<h4 id="垃圾回收器？⭐"><a href="#垃圾回收器？⭐" class="headerlink" title="垃圾回收器？⭐"></a>垃圾回收器？⭐</h4><p>Serial：最基础的收集器，使用复制算法、单线程工作，进行垃圾收集时必须暂停其他线程。Serial 是客户端模式的默认新生代收集器，对于处理器核心较少的环境，由于没有线程开销，可获得最高的单线程收集效率。</p>
+<p>ParNew：Serial 的多线程版本，ParNew 是虚拟机在服务端模式的默认新生代收集器。</p>
+<p>Parallel Scavenge：基于复制算法、多线程工作的新生代收集器，目标是高吞吐量。</p>
+<p>Serial Old：Serial 的老年代版本，使用整理算法，是客户端模式的默认老年代收集器。</p>
+<p>Parellel Old：Parallel Scavenge 的老年代版本，支持多线程，基于整理算法。</p>
+<p>CMS：以获取最短回收停顿时间为目标，基于清除算法，过程分为四个步骤：初始标记、并发标记、重新标记、并发清除。缺点：① 对处理器资源敏感，并发阶段虽然不会导致用户线程暂停，但会降低吞吐量。② 无法处理浮动垃圾，有可能出现并发失败而导致 Full GC。③ 基于清除算法，会产生空间碎片。</p>
+<p>G1：开创了面向局部收集的设计思路和基于 Region 的内存布局，主要面向服务端，最初设计目标是替换 CMS。可面向堆任何部分来组成回收集进行回收，衡量标准不再是分代，而是哪块内存中垃圾的价值最大。价值即回收所获空间大小以及回收所需时间的经验值，G1 在后台维护一个优先级列表，每次根据用户设定允许的收集停顿时间优先处理回收价值最大的 Region。运作过程：初始标记、并发标记、最终标记、筛选回收。</p>
+<p>ZGC：JDK11 中加入的具有实验性质的低延迟垃圾收集器，目标是尽可能在不影响吞吐量的前提下，实现在任意堆内存大小都可以把停顿时间限制在 10ms 以内的低延迟。基于 Region 内存布局，不设分代，使用了读屏障、染色指针和内存多重映射等技术实现可并发的标记整理。ZGC 的 Region 具有动态性，是动态创建和销毁的，并且容量大小也是动态变化的。</p>
+<hr>
+<h4 id="类加载机制了解吗？⭐⭐"><a href="#类加载机制了解吗？⭐⭐" class="headerlink" title="类加载机制了解吗？⭐⭐"></a>类加载机制了解吗？⭐⭐</h4><p>JVM 把描述类的数据从 Class 文件加载到内存，并对数据进行验证、解析和初始化，最终形成可以被虚拟机直接使用的 Java 类型。</p>
+<p>加载：通过一个类的全限定类名获取对应的二进制流，在内存中生成对应的 Class 实例，作为方法区中这个类的访问入口。</p>
+<p>验证：确保 Class 文件符合约束，防止因载入有错字节流而遭受攻击。包含：文件格式验证、元数据验证、字节码验证、符号引用验证。</p>
+<p>准备：为类静态变量分配内存并设置零值，该阶段进行的内存分配仅包括类变量，不包括实例变量。</p>
+<p>解析：将常量池内的符号引用替换为直接引用。</p>
+<p>初始化：直到该阶段 JVM 才开始执行类中编写的代码，根据程序员的编码去初始化类变量和其他资源。</p>
+<hr>
+<h4 id="双亲加载机制？⭐"><a href="#双亲加载机制？⭐" class="headerlink" title="双亲加载机制？⭐"></a>双亲加载机制？⭐</h4><p>双亲委派模型要求除了顶层的启动类加载器外，其余类加载器都应该有自己的父加载器。</p>
+<p>一个类加载器收到了类加载请求，不会自己去尝试加载，而将该请求委派给父加载器，每层的类加载器都是如此，因此所有加载请求最终都应该传送到启动类加载器，只有当父加载器反馈无法完成请求时，子加载器才会尝试。</p>
+<p>类跟随它的加载器一起具备了有优先级的层次关系，确保某个类在各个类加载器环境中都是同一个，保证程序的稳定性。</p>
+<hr>
+<h2 id="并发4"><a href="#并发4" class="headerlink" title="并发4"></a>并发4</h2><h4 id="final-关键字？⭐"><a href="#final-关键字？⭐" class="headerlink" title="final 关键字？⭐"></a>final 关键字？⭐</h4><p>final 类不能被继承，所有成员方法都会被隐式地指定为 final 方法，final 方法不能被重写。</p>
+<p>final 变量表示常量，只能被赋值一次，赋值后值不再改变。</p>
+<ul>
+<li>修饰基本数据类型时，该值在初始化后不能改变。</li>
+<li>修饰引用类型时，引用指向的对象在初始化后不能改变，但该对象的内容可以发生变化。</li>
+</ul>
+<p><strong>内存语义</strong></p>
+<ul>
+<li>编译器会在 final 域的写后，构造方法的 return 前插入一个 Store Store 屏障，确保对象引用为任意线程可见前其 final 域已初始化。 </li>
+<li>编译器在读 final 域操作的前面插入一个 Load Load 屏障，确保在读一个对象的 final 域前一定会先读包含这个 final 域的对象引用。</li>
+</ul>
+<hr>
+<h4 id="Java-怎么实现线程？⭐"><a href="#Java-怎么实现线程？⭐" class="headerlink" title="Java 怎么实现线程？⭐"></a>Java 怎么实现线程？⭐</h4><p>① 继承 Thread 类并重写 <code>run</code> 方法。实现简单，但不符合里氏替换原则，不可以继承其他类。</p>
+<p>② 实现 Runnable 接口并重写 <code>run</code> 方法。避免了单继承局限性，实现解耦。</p>
+<p>③实现 Callable 接口并重写 <code>call</code> 方法。可以获取线程执行结果的返回值，并且可以抛出异常。</p>
+<hr>
+<h4 id="Java-线程通信的方式？⭐"><a href="#Java-线程通信的方式？⭐" class="headerlink" title="Java 线程通信的方式？⭐"></a>Java 线程通信的方式？⭐</h4><p>Java 采用共享内存模型，线程间的通信总是隐式进行，整个通信过程对程序员完全透明。</p>
+<p>volatile 告知程序任何对变量的读需要从主内存中获取，写必须同步刷新回主内存，保证所有线程对变量访问的可见性。</p>
+<p>synchronized 确保多个线程在同一时刻只能有一个处于方法或同步块中，保证线程对变量访问的原子性、可见性和有序性。</p>
+<p>等待通知机制指一个线程 A 调用了对象的 <code>wait</code> 方法进入等待状态，另一线程 B 调用了对象的 <code>notify/notifyAll</code> 方法，线程 A 收到通知后结束阻塞并执行后序操作。对象上的 <code>wait</code> 和 <code>notify/notifyAll</code> 完成等待方和通知方的交互。</p>
+<p>如果一个线程执行了某个线程的 <code>join</code> 方法，这个线程就会阻塞等待执行了 <code>join</code> 方法的线程终止，这里涉及等待/通知机制。<code>join</code> 底层通过 <code>wait</code> 实现，线程终止时会调用自身的 <code>notifyAll</code> 方法，通知所有等待在该线程对象上的线程。</p>
+<p>管道 IO 流用于线程间数据传输，媒介为内存。PipedOutputStream 和 PipedWriter 是输出流，相当于生产者，PipedInputStream 和 PipedReader 是输入流，相当于消费者。管道流使用一个默认大小为 1KB 的循环缓冲数组。输入流从缓冲数组读数据，输出流往缓冲数组中写数据。当数组已满时，输出流所在线程阻塞；当数组首次为空时，输入流所在线程阻塞。</p>
+<p>ThreadLocal 是线程共享变量，但它可以为每个线程创建单独的副本，副本值是线程私有的，互相之间不影响。</p>
+<hr>
+<h4 id="了解-Volatile-吗？⭐"><a href="#了解-Volatile-吗？⭐" class="headerlink" title="了解 Volatile 吗？⭐"></a>了解 Volatile 吗？⭐</h4><p>保证变量对所有线程可见：当一条线程修改了变量值，新值对于其他线程来说立即可见。</p>
+<p>禁止指令重排序优化：使用 volatile 变量进行写操作，汇编指令带有 lock 前缀，lock 引发两件事：① 将当前处理器缓存行的数据写回系统内存。②使其他处理器的缓存无效。相当于对缓存变量做了一次 store 和 write 操作，让 volatile 变量的修改对其他处理器立即可见。</p>
+<p>写 volatile 变量时，把该线程工作内存中的值刷新到主内存；读 volatile 变量时，把该线程工作内存值置为无效，从主内存读取。</p>
+<hr>
+<h2 id="框架6"><a href="#框架6" class="headerlink" title="框架6"></a>框架6</h2><h4 id="IoC-的原理？⭐⭐⭐"><a href="#IoC-的原理？⭐⭐⭐" class="headerlink" title="IoC 的原理？⭐⭐⭐"></a>IoC 的原理？⭐⭐⭐</h4><p>IoC 控制反转，把对象创建、依赖反转给容器实现，需要创建一个容器和一种描述让容器知道对象间的依赖关系，Spring 通过 IoC 容器管理对象及其依赖关系。IoC 的主要实现方式是 DI，对象不是从容器中查找依赖的类，而是容器实例化对象时主动为它注入依赖的类。</p>
+<hr>
+<h4 id="AOP-的原理？⭐⭐⭐"><a href="#AOP-的原理？⭐⭐⭐" class="headerlink" title="AOP 的原理？⭐⭐⭐"></a>AOP 的原理？⭐⭐⭐</h4><p>AOP 面向切面编程，将代码中重复的部分抽取出来，使用动态代理技术，在不修改源码的基础上对方法进行增强。</p>
+<p>如果目标对象实现了接口，默认采用 JDK 动态代理，也可以强制使用 CGLib；如果目标对象没有实现接口，采用 CGLib 的方式。</p>
+<p>常用场景包括权限认证、自动缓存、错误处理、日志、调试和事务等。</p>
+<p><strong>相关注解</strong></p>
+<p><code>@Aspect</code>：声明被注解的类是一个切面 Bean。</p>
+<p><code>@Before</code>：前置通知，指在某个连接点之前执行的通知。</p>
+<p><code>@After</code>：后置通知，指某个连接点退出时执行的通知（不论正常返回还是异常退出）。</p>
+<p><code>@AfterReturning</code>：返回后通知，指某连接点正常完成之后执行的通知，返回值使用 returning 属性接收。</p>
+<p><code>@AfterThrowing</code>：异常通知，指方法异常退出时执行的通知，和 <code>@AfterReturning</code> 只会有一个执行，异常使用 throwing 属性接收。</p>
+<p><strong>相关术语</strong></p>
+<p><code>Aspect</code>：切面，一个关注点的模块化，这个关注点可能会横切多个对象。</p>
+<p><code>Joinpoint</code>：连接点，程序执行过程中的某一行为，即业务层中的所有方法。</p>
+<p><code>Advice</code>：通知，指切面对于某个连接点所产生的动作，包括前置通知、后置通知、返回后通知、异常通知和环绕通知。</p>
+<p><code>Pointcut</code>：切入点，指被拦截的连接点，切入点一定是连接点，但连接点不一定是切入点。</p>
+<p><code>Proxy</code>：代理，Spring AOP 中有 JDK 动态代理和 CGLib 代理，目标对象实现了接口时采用 JDK 动态代理，反之采用 CGLib 代理。</p>
+<p><code>Target</code>：代理的目标对象，指一个或多个切面所通知的对象。</p>
+<p><code>Weaving</code> ：织入，指把增强应用到目标对象来创建代理对象的过程。</p>
+<hr>
+<h4 id="Spring-中有哪些设计模式？⭐"><a href="#Spring-中有哪些设计模式？⭐" class="headerlink" title="Spring 中有哪些设计模式？⭐"></a>Spring 中有哪些设计模式？⭐</h4><p>简单工厂模式：Spring 中的 BeanFactory，根据传入一个唯一的标识来获得 Bean 实例。</p>
+<p>工厂方法模式：Spring 的 FactoryBean 接口的 <code>getObject</code> 方法。</p>
+<p>单例模式：Spring 的 ApplicationContext 创建的 Bean 实例都是单例对象。</p>
+<p>代理模式：Spring 的 AOP。</p>
+<p>适配器模式：Spring MVC 中的 HandlerAdapter，由于 handler 有很多种形式，包括 Controller、HttpRequestHandler、Servlet 等，但调用方式又是确定的，因此需要适配器来进行处理，根据适配规则调用 handle 方法。 </p>
+<hr>
+<h4 id="创建-Bean-的方式？⭐"><a href="#创建-Bean-的方式？⭐" class="headerlink" title="创建 Bean 的方式？⭐"></a>创建 Bean 的方式？⭐</h4><p>XML：</p>
+<ul>
+<li><p>默认无参构造方法，只需指明 bean 标签中的 id 和 class 属性。</p>
+</li>
+<li><p>静态工厂方法，通过 bean 标签的 class 属性指明工厂，factory-method 属性指明方法。</p>
+</li>
+<li><p>实例工厂方法，通过 bean 标签的 factory-bean 属性指明工厂，factory-method 属性指明方法。</p>
+</li>
+</ul>
+<p>注解： </p>
+<ul>
+<li><p><code>@Component</code> 把当前类对象存入 Spring 容器，相当于在 xml 中配置一个 bean 标签。</p>
+</li>
+<li><p><code>@Controller</code>，<code>@Service</code>，<code>@Repository</code> 都是 <code>@Component</code>  的衍生注解，作用及属性都一模一样，只是提供了更明确的语义，<code>@Controller</code> 用于表现层，<code>@Service</code>用于业务层，<code>@Repository</code>用于持久层。</p>
+</li>
+<li><p>如果想注入第三方类又没有源码，就没法使用 <code>@Component</code>，需要用 <code>@Bean</code>。被 <code>@Bean</code> 注解的方法返回值是一个对象，这个对象由 Spring 的 IoC 容器管理，name 属性用于给对象指定一个名称。</p>
+</li>
+</ul>
+<hr>
+<h4 id="MVC-常用注解？⭐"><a href="#MVC-常用注解？⭐" class="headerlink" title="MVC 常用注解？⭐"></a>MVC 常用注解？⭐</h4><p><code>@Controller</code>：是 <code>@Component</code>  的衍生注解，作用及属性都一模一样，只是提供了更明确的语义，用于表现层，</p>
+<p><code>@RequtestMapping</code>：将 URL 请求和方法映射起来，在类和方法定义上都可以添加。<code>value</code> 属性指定 URL 请求的地址。<code>method</code> 属性限制请求类型，如果没有使用指定方法请求 URL，会报 405 错误。<code>params</code> 属性限制必须提供的参数。</p>
+<p><code>@RequestParam</code>：如果 Controller 方法的形参和 URL 参数名不一致可以使用该注解绑定。<code>value</code> 属性表示 HTTP 请求中的参数名，<code>required</code> 属性设置参数是否必要，默认false。<code>defaultValue</code> 属性指定没有给参数赋值时的默认值。</p>
+<p><code>@PathVariable</code>：Spring MVC 支持 RESTful 风格 URL，通过 <code>@PathVariable</code> 完成参数绑定。</p>
+<hr>
+<h4 id="Spring-Cloud中有哪些组件？⭐"><a href="#Spring-Cloud中有哪些组件？⭐" class="headerlink" title="Spring Cloud中有哪些组件？⭐"></a>Spring Cloud中有哪些组件？⭐</h4><p>服务治理 Eureka：服务治理由三部分组成：服务提供者、服务消费者、注册中心。Spring Cloud 的服务治理使用 Eureka 实现，Eureka 是 Netflix 开源的基于 REST 的服务治理解决方案，Spring Cloud 集成了 Eureka，提供服务注册和服务发现的功能，可以和基于 Spring Boot 搭建的微服务应用轻松完成整合。</p>
+<p>服务网关 Zuul：Zuul 是 Netflix 提供的一个开源的 API 网关服务器，是客户端和网站后端所有请求的中间层，对外开放一个 API，将所有请求导入统一的入口，屏蔽了服务端的具体实现逻辑，可以实现方向代理功能，在网关内部实现动态路由、身份认证、数据监控等。</p>
+<p>负载均衡 Ribbon：Ribbon 是 Netflix 发布的均衡负载器，Spring Cloud 集成了 Ribbon，提供用于对 HTTP 请求进行控制的负载均衡客户端。在注册中心对 Ribbon 进行注册之后，Ribbon 就可以基于某种负载均衡算法（轮循、随机、加权轮询、加权随机等）自动帮助服务消费者调用接口，开发者也可以根据具体需求自定义 Ribbon 负载均衡算法。</p>
+<p>声明式接口调用 Feign：Feign 是 Netflix 提供的，一个声明式、模板化的 Web Service 客户端，简化了开发者编写 Web 客户端的操作，开发者可以通过简单的接口和注解来调用 HTTP API。相比于 Ribbon + RestTemplate 的方式，Feign 可以大大简化代码开发，支持多种注解，包括 Feign 注解、Spring MVC 注解等。</p>
+<p>服务配置 Config：Spring Cloud Config 通过服务端可以为多个客户端提供配置服务，既可以将配置文件存储在本地，也可以将配置文件存储在远程的 Git 仓库，创建 Config Server，通过它管理所有的配置文件。</p>
+<p>服务跟踪 Zipkin：Spring Cloud Zipkin 是一个可以采集并跟踪分布式系统中请求数据的组件，让开发者更直观地监控到请求在各个微服务耗费的时间，Zipkin 包括两部分 Zipkin Server 和 Zipkin Client。</p>
+<p>服务熔断 Hystrix：在不改变各个微服务调用关系的前提下，针对错误情况进行预先处理。</p>
+<hr>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/10/12/17_SQL 语句例题及解析/" rel="next" title>
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/10/12/20_Last/" rel="prev" title>
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/">
+            
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="stone">
+            
+          </a>
+              <p class="site-author-name" itemprop="name">stone</p>
+              <div class="site-description motion-element" itemprop="description">Hungry Fool</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">33</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#计算机网络8"><span class="nav-number">1.</span> <span class="nav-text">计算机网络8</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#cookie和session？⭐⭐"><span class="nav-number">1.0.1.</span> <span class="nav-text">cookie和session？⭐⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TCP-三次握手的过程？为什么要三次握手？⭐⭐"><span class="nav-number">1.0.2.</span> <span class="nav-text">TCP 三次握手的过程？为什么要三次握手？⭐⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#拥塞控制了解嘛？⭐"><span class="nav-number">1.0.3.</span> <span class="nav-text">拥塞控制了解嘛？⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#滑动窗口怎么变化的？⭐"><span class="nav-number">1.0.4.</span> <span class="nav-text">滑动窗口怎么变化的？⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TCP-四次挥手的过程？为什么要四次挥手？⭐"><span class="nav-number">1.0.5.</span> <span class="nav-text">TCP 四次挥手的过程？为什么要四次挥手？⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TCP-和-UDP-的区别？⭐"><span class="nav-number">1.0.6.</span> <span class="nav-text">TCP 和 UDP 的区别？⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTP-和-HTTPS？⭐"><span class="nav-number">1.0.7.</span> <span class="nav-text">HTTP 和 HTTPS？⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTPS-过程？⭐"><span class="nav-number">1.0.8.</span> <span class="nav-text">HTTPS 过程？⭐</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#操作系统4"><span class="nav-number">2.</span> <span class="nav-text">操作系统4</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#有一些任务紧急的进程需要执行，采用什么调度算法？你还知道哪些调度算法？⭐⭐⭐"><span class="nav-number">2.0.1.</span> <span class="nav-text">有一些任务紧急的进程需要执行，采用什么调度算法？你还知道哪些调度算法？⭐⭐⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是原语？⭐"><span class="nav-number">2.0.2.</span> <span class="nav-text">什么是原语？⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux-中进程有哪些状态？⭐"><span class="nav-number">2.0.3.</span> <span class="nav-text">Linux 中进程有哪些状态？⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#进程包含什么？⭐"><span class="nav-number">2.0.4.</span> <span class="nav-text">进程包含什么？⭐</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux7"><span class="nav-number">3.</span> <span class="nav-text">Linux7</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#打包命令？⭐⭐⭐"><span class="nav-number">3.0.1.</span> <span class="nav-text">打包命令？⭐⭐⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查看当前进程？⭐⭐⭐"><span class="nav-number">3.0.2.</span> <span class="nav-text">查看当前进程？⭐⭐⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何查看文件？cat-和-more-的区别？⭐⭐"><span class="nav-number">3.0.3.</span> <span class="nav-text">如何查看文件？cat 和 more 的区别？⭐⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#压缩命令？⭐⭐"><span class="nav-number">3.0.4.</span> <span class="nav-text">压缩命令？⭐⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何查看文件后-10-行？⭐⭐"><span class="nav-number">3.0.5.</span> <span class="nav-text">如何查看文件后 10 行？⭐⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vim-和-cat-的区别？⭐⭐"><span class="nav-number">3.0.6.</span> <span class="nav-text">vim 和 cat 的区别？⭐⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#列出文件命令？按时间的选项是什么？⭐"><span class="nav-number">3.0.7.</span> <span class="nav-text">列出文件命令？按时间的选项是什么？⭐</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL14"><span class="nav-number">4.</span> <span class="nav-text">MySQL14</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#隔离级别？⭐⭐⭐⭐⭐⭐"><span class="nav-number">4.0.1.</span> <span class="nav-text">隔离级别？⭐⭐⭐⭐⭐⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#事务？⭐⭐⭐⭐⭐"><span class="nav-number">4.0.2.</span> <span class="nav-text">事务？⭐⭐⭐⭐⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内连接、左连接和外连接？⭐⭐⭐⭐"><span class="nav-number">4.0.3.</span> <span class="nav-text">内连接、左连接和外连接？⭐⭐⭐⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#存储引擎？⭐⭐⭐"><span class="nav-number">4.0.4.</span> <span class="nav-text">存储引擎？⭐⭐⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#索引失效的情况？⭐⭐⭐"><span class="nav-number">4.0.5.</span> <span class="nav-text">索引失效的情况？⭐⭐⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#聚簇索引是什么？⭐⭐⭐"><span class="nav-number">4.0.6.</span> <span class="nav-text">聚簇索引是什么？⭐⭐⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查询优化？⭐⭐⭐"><span class="nav-number">4.0.7.</span> <span class="nav-text">查询优化？⭐⭐⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#delete、drop、truncate的区别？⭐⭐"><span class="nav-number">4.0.8.</span> <span class="nav-text">delete、drop、truncate的区别？⭐⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#视图的优点？⭐"><span class="nav-number">4.0.9.</span> <span class="nav-text">视图的优点？⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#有哪些索引？⭐⭐"><span class="nav-number">4.0.10.</span> <span class="nav-text">有哪些索引？⭐⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据库范式？⭐⭐"><span class="nav-number">4.0.11.</span> <span class="nav-text">数据库范式？⭐⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#索引建立的规范？⭐⭐"><span class="nav-number">4.0.12.</span> <span class="nav-text">索引建立的规范？⭐⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#游标是什么？⭐"><span class="nav-number">4.0.13.</span> <span class="nav-text">游标是什么？⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MySQL-有哪些聚合函数？⭐"><span class="nav-number">4.0.14.</span> <span class="nav-text">MySQL 有哪些聚合函数？⭐</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis5"><span class="nav-number">5.</span> <span class="nav-text">Redis5</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis有哪些数据类型？⭐⭐⭐"><span class="nav-number">5.0.1.</span> <span class="nav-text">Redis有哪些数据类型？⭐⭐⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更新策略有哪些？⭐"><span class="nav-number">5.0.2.</span> <span class="nav-text">更新策略有哪些？⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缓存穿透是什么？⭐"><span class="nav-number">5.0.3.</span> <span class="nav-text">缓存穿透是什么？⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缓存击穿是什么？⭐⭐"><span class="nav-number">5.0.4.</span> <span class="nav-text">缓存击穿是什么？⭐⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缓存雪崩是什么？⭐"><span class="nav-number">5.0.5.</span> <span class="nav-text">缓存雪崩是什么？⭐</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据结构和算法9"><span class="nav-number">6.</span> <span class="nav-text">数据结构和算法9</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#哪些排序是稳定的，哪些排序不稳定？⭐⭐⭐⭐⭐"><span class="nav-number">6.0.1.</span> <span class="nav-text">哪些排序是稳定的，哪些排序不稳定？⭐⭐⭐⭐⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#快速排序的思想？⭐⭐⭐⭐"><span class="nav-number">6.0.2.</span> <span class="nav-text">快速排序的思想？⭐⭐⭐⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是满二叉树？⭐⭐"><span class="nav-number">6.0.3.</span> <span class="nav-text">什么是满二叉树？⭐⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#红黑树是什么？⭐⭐"><span class="nav-number">6.0.4.</span> <span class="nav-text">红黑树是什么？⭐⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#判断带-head-头节点的单链表为空的条件？⭐⭐⭐"><span class="nav-number">6.0.5.</span> <span class="nav-text">判断带 head 头节点的单链表为空的条件？⭐⭐⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#B-树和-B-树的区别？⭐⭐⭐"><span class="nav-number">6.0.6.</span> <span class="nav-text">B 树和 B+ 树的区别？⭐⭐⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是满二叉树？⭐⭐-1"><span class="nav-number">6.0.7.</span> <span class="nav-text">什么是满二叉树？⭐⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#红黑树是什么？⭐⭐-1"><span class="nav-number">6.0.8.</span> <span class="nav-text">红黑树是什么？⭐⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是哈夫曼树？⭐"><span class="nav-number">6.0.9.</span> <span class="nav-text">什么是哈夫曼树？⭐</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-基础12"><span class="nav-number">7.</span> <span class="nav-text">Java 基础12</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ArrayList-和-LinkedList的区别？⭐⭐"><span class="nav-number">7.0.1.</span> <span class="nav-text">ArrayList 和 LinkedList的区别？⭐⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HashMap-和-HashTable-的区别？⭐⭐"><span class="nav-number">7.0.2.</span> <span class="nav-text">HashMap 和 HashTable 的区别？⭐⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#重载和重写的区别？⭐⭐"><span class="nav-number">7.0.3.</span> <span class="nav-text">重载和重写的区别？⭐⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#泛型和泛型擦除？⭐⭐"><span class="nav-number">7.0.4.</span> <span class="nav-text">泛型和泛型擦除？⭐⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#反射⭐⭐"><span class="nav-number">7.0.5.</span> <span class="nav-text">反射⭐⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#和-equals的区别？⭐"><span class="nav-number">7.0.6.</span> <span class="nav-text">== 和 equals的区别？⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#equals-和-hashCode-的关系？⭐"><span class="nav-number">7.0.7.</span> <span class="nav-text">equals 和 hashCode 的关系？⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Object-有哪些方法？⭐"><span class="nav-number">7.0.8.</span> <span class="nav-text">Object 有哪些方法？⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Java-三大特性？⭐"><span class="nav-number">7.0.9.</span> <span class="nav-text">Java 三大特性？⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#序列化是什么？⭐"><span class="nav-number">7.0.10.</span> <span class="nav-text">序列化是什么？⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Java-八大基本数据类型？⭐"><span class="nav-number">7.0.11.</span> <span class="nav-text">Java 八大基本数据类型？⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#List、Set-和-Map-的区别？⭐"><span class="nav-number">7.0.12.</span> <span class="nav-text">List、Set 和 Map 的区别？⭐</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JVM5"><span class="nav-number">8.</span> <span class="nav-text">JVM5</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#StackOverflow是怎么发生的？⭐"><span class="nav-number">8.0.1.</span> <span class="nav-text">StackOverflow是怎么发生的？⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#垃圾回收机制⭐"><span class="nav-number">8.0.2.</span> <span class="nav-text">垃圾回收机制⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#垃圾回收器？⭐"><span class="nav-number">8.0.3.</span> <span class="nav-text">垃圾回收器？⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#类加载机制了解吗？⭐⭐"><span class="nav-number">8.0.4.</span> <span class="nav-text">类加载机制了解吗？⭐⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#双亲加载机制？⭐"><span class="nav-number">8.0.5.</span> <span class="nav-text">双亲加载机制？⭐</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#并发4"><span class="nav-number">9.</span> <span class="nav-text">并发4</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#final-关键字？⭐"><span class="nav-number">9.0.1.</span> <span class="nav-text">final 关键字？⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Java-怎么实现线程？⭐"><span class="nav-number">9.0.2.</span> <span class="nav-text">Java 怎么实现线程？⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Java-线程通信的方式？⭐"><span class="nav-number">9.0.3.</span> <span class="nav-text">Java 线程通信的方式？⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#了解-Volatile-吗？⭐"><span class="nav-number">9.0.4.</span> <span class="nav-text">了解 Volatile 吗？⭐</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#框架6"><span class="nav-number">10.</span> <span class="nav-text">框架6</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#IoC-的原理？⭐⭐⭐"><span class="nav-number">10.0.1.</span> <span class="nav-text">IoC 的原理？⭐⭐⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AOP-的原理？⭐⭐⭐"><span class="nav-number">10.0.2.</span> <span class="nav-text">AOP 的原理？⭐⭐⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Spring-中有哪些设计模式？⭐"><span class="nav-number">10.0.3.</span> <span class="nav-text">Spring 中有哪些设计模式？⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建-Bean-的方式？⭐"><span class="nav-number">10.0.4.</span> <span class="nav-text">创建 Bean 的方式？⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MVC-常用注解？⭐"><span class="nav-number">10.0.5.</span> <span class="nav-text">MVC 常用注解？⭐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Spring-Cloud中有哪些组件？⭐"><span class="nav-number">10.0.6.</span> <span class="nav-text">Spring Cloud中有哪些组件？⭐</span></a></li></ol></li></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">stone</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="Total Visitors">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="Total Views">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'BfQW4FLTza3lJnrgwNX9oCW1-gzGzoHsz',
+    appKey: '0L4jcEeI7bk5hnenGxU9XGk2',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn'
+  });
+</script>
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      document.getElementById(all[i].inputID + '-Frame').parentNode.className += ' has-jax';
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<!-- 页面点击核心价值观 -->
+<script type="text/javascript" src="/js/src/clickfuqiang.js"></script>
+<!-- 点击爆炸 -->
+
+<!-- 音频播放 -->
+<link rel="stylesheet" href="/js/src/APlayer.min.css">
+  <div id="player" class="aplayer aplayer-withlist aplayer-fixed" data-id="3148759183" data-server="netease" data-type="playlist" data-order="random" data-fixed="true" data-listfolded="true" data-theme="#2D8CF0"></div>
+  <script src="/js/src/APlayer.min.js"></script>
+  <script src="/js/src/music.js"></script>
+<script>
+$(".aplayer-play").click()   // 如果想让歌曲在页面加载完播放可以设置
+</script>
+
+<!-- 猫 -->
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/2662419405/CDN/pio.css">
+<script src="https://cdn.jsdelivr.net/gh/2662419405/CDN/l2dPlus.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/2662419405/CDN/pioPlus.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/2662419405/CDN/mao.js"></script>
+
+<!-- mouse-click -->
+<script src="/js/src/mouseclick.js" type="text/javascript"></script>
+<!-- mouse-follow -->
+<span class="js-cursor-container"></span>
+<script src="/js/src/mousefollow.js" type="text/javascript"></script>
