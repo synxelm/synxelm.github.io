@@ -1,0 +1,1362 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="相关概念ORM思想 Object-Relational Mapping 表示对象关系映射，在面向对象的软件开发中，通过ORM，就可以把对象映射到关系型数据库中。 主要目的：操作实体类就相当于操作数据库表，不再重点关注sql语句">
+<meta name="keywords" content="Spring">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring Data JPA 入门实战笔记">
+<meta property="og:url" content="http://yoursite.com/2020/04/20/3_SpringDataJPA 入门实战笔记/index.html">
+<meta property="og:site_name" content="Nowhere">
+<meta property="og:description" content="相关概念ORM思想 Object-Relational Mapping 表示对象关系映射，在面向对象的软件开发中，通过ORM，就可以把对象映射到关系型数据库中。 主要目的：操作实体类就相当于操作数据库表，不再重点关注sql语句">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200209143053692.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMTEyMjM4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200516130822208.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200516132153819.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/202005161357545.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200516153619624.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMTEyMjM4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200516155055419.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMTEyMjM4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200516155801792.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMTEyMjM4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200516160059432.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMTEyMjM4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020051616041717.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200516162655992.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200516163355123.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200516163900609.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMTEyMjM4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200516170314729.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMTEyMjM4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200516171100959.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMTEyMjM4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200516173645430.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200516175208415.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200516175629432.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMTEyMjM4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020051710013969.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMTEyMjM4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020051710060266.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMTEyMjM4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200517101039732.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMTEyMjM4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="c:/Users/Administrator/AppData/Roaming/Typora/typora-user-images/image-20200517102119993.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200517103148337.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMTEyMjM4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200517112449880.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMTEyMjM4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200517120420989.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMTEyMjM4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200517121244629.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200517141446387.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200517142925689.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200517143214778.png">
+<meta property="og:updated_time" content="2020-10-31T04:14:47.323Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring Data JPA 入门实战笔记">
+<meta name="twitter:description" content="相关概念ORM思想 Object-Relational Mapping 表示对象关系映射，在面向对象的软件开发中，通过ORM，就可以把对象映射到关系型数据库中。 主要目的：操作实体类就相当于操作数据库表，不再重点关注sql语句">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200209143053692.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMTEyMjM4,size_16,color_FFFFFF,t_70">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2020/04/20/3_SpringDataJPA 入门实战笔记/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Spring Data JPA 入门实战笔记 | Nowhere</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Nowhere</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/20/3_SpringDataJPA 入门实战笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="stone">
+      <meta itemprop="description" content="Hungry Fool">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nowhere">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Spring Data JPA 入门实战笔记
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-04-20 10:12:47" itemprop="dateCreated datePublished" datetime="2020-04-20T10:12:47+08:00">2020-04-20</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-10-31 12:14:47" itemprop="dateModified" datetime="2020-10-31T12:14:47+08:00">2020-10-31</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/面试/" itemprop="url" rel="index"><span itemprop="name">面试</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">Comments: </span>
+                <a href="/2020/04/20/3_SpringDataJPA 入门实战笔记/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/04/20/3_SpringDataJPA 入门实战笔记/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             Views:  
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h2><h3 id="ORM思想"><a href="#ORM思想" class="headerlink" title="ORM思想"></a>ORM思想</h3><ul>
+<li>Object-Relational Mapping 表示<strong>对象关系映射</strong>，在面向对象的软件开发中，通过ORM，就可以把对象映射到关系型数据库中。</li>
+<li><strong>主要目的：</strong><br>操作实体类就相当于操作数据库表，不再重点关注sql语句<a id="more"></a></li>
+<li><strong>建立两个映射关系：</strong><br>实体类和表的映射关系<br>实体类中属性和表中字段的映射关系</li>
+<li><strong>实现了ORM思想的框架：</strong><br>Mybatis、Hibernate</li>
+</ul>
+<hr>
+<h3 id="Hibernate框架"><a href="#Hibernate框架" class="headerlink" title="Hibernate框架"></a><strong>Hibernate框架</strong></h3><ul>
+<li>一个开放源代码的对象关系映射框架</li>
+<li>对JDBC进行了非常轻量级的对象封装</li>
+<li>将POJO与数据库表建立映射关系，是一个全自动的ORM框架</li>
+</ul>
+<hr>
+<h3 id="JPA规范"><a href="#JPA规范" class="headerlink" title="JPA规范"></a><strong>JPA规范</strong></h3><ul>
+<li>JPA的全称是Java Persistence API， 即Java持久化API，是SUN公司推出的一套基于ORM的规范，内部是由一系列的接口和抽象类构成。</li>
+<li>JPA通过JDK 5.0注解描述对象－关系表的映射关系，并将运行期的实体对象持久化到数据库中。</li>
+<li><p><strong>优点：</strong><br><strong>①标准化</strong><br>任何声称符合 JPA 标准的框架都遵循同样的架构，提供相同的访问API，这保证了基于JPA开发的企业应用能够经过少量的修改就能够在不同的JPA框架下运行。<br><strong>②容器级特性支持</strong><br>JPA框架中支持大数据集、事务、并发等容器级事务，这使得 JPA 超越了简单持久化框架的局限，在企业应用发挥更大的作用。<br><strong>③简单方便</strong><br>在JPA框架下创建实体和创建Java 类一样简单，没有任何的约束和限制，只需要使用 <code>javax.persistence.Entity</code>进行注释，JPA的框架和接口也都非常简单，没有太多特别的规则和设计模式的要求，开发者可以很容易的掌握。<br><strong>④ 查询能力</strong><br>JPA的查询语言是<strong>面向对象</strong>而非面向数据库的，JPA定义了独特的<code>JPQL（Java Persistence Query Language）</code>，它是针对实体的一种查询语言，操作对象是实体，能够支持批量更新和修改、JOIN、GROUP BY、HAVING 等通常只有 SQL 才能够提供的高级查询特性，甚至还能够支持子查询。<br><strong>⑤高级特性</strong><br>JPA 中能够支持面向对象的高级特性，如类之间的继承、多态和类之间的复杂关系，这样的支持能够让开发者最大限度的使用面向对象的模型设计企业应用，而不需要自行处理这些特性在关系数据库的持久化。</p>
+</li>
+<li><p><strong>JPA与hibernate的关系</strong><br>JPA规范本质上就是一种ORM规范，注意不是ORM框架——JPA并未提供ORM实现，它只是制订了规范，提供了编程的API接口，具体实现则由服务厂商来提供。</p>
+<p>  JPA和Hibernate的关系就像JDBC和JDBC驱动的关系，JPA是规范，Hibernate除了作为ORM框架之外，它也是一种JPA实现。如果使用JPA规范进行数据库操作，底层需要hibernate作为其实现类完成数据持久化工作。<br>  <img src="https://img-blog.csdnimg.cn/20200209143053692.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMTEyMjM4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" style="zoom:80%;"></p>
+</li>
+</ul>
+<hr>
+<h3 id="Spring-Data-JPA概述"><a href="#Spring-Data-JPA概述" class="headerlink" title="Spring Data JPA概述"></a>Spring Data JPA概述</h3><ul>
+<li>Spring Data JPA 是 Spring 基于 ORM 框架、JPA 规范的基础上封装的一套JPA应用框架，可使开发者用极简的代码即可实现对数据库的访问和操作。</li>
+<li>它提供了包括增删改查等在内的常用功能，且易于扩展，可以极大提高开发效率。</li>
+<li>Spring Data JPA 让我们解脱了DAO层的操作，基本上所有CRUD都可以依赖于它来实现,在实际的工作工程中，推荐使用Spring Data JPA + ORM（如：hibernate）完成操作，这样在切换不同的ORM框架时提供了极大的方便，同时也使数据库层操作更加简单，方便解耦。</li>
+</ul>
+<hr>
+<h3 id="Spring-Data-JPA的特性"><a href="#Spring-Data-JPA的特性" class="headerlink" title="Spring Data JPA的特性"></a>Spring Data JPA的特性</h3><ul>
+<li>极大简化了数据库访问层代码。</li>
+<li>Dao层中只需要写接口，就自动具有了增删改查、分页查询等方法。</li>
+</ul>
+<hr>
+<h2 id="快速入门案例"><a href="#快速入门案例" class="headerlink" title="快速入门案例"></a>快速入门案例</h2><h3 id="搭建-Spring-Boot-环境"><a href="#搭建-Spring-Boot-环境" class="headerlink" title="搭建 Spring Boot 环境"></a>搭建 Spring Boot 环境</h3><p>首先从 <a href="https://start.spring.io/" target="_blank" rel="noopener">https://start.spring.io/</a> 构建一个Gradle的 SpringBoot 工程，选择的组件包括Lombok、 Spring Data JPA 、Web 、MySQL。</p>
+<p>下载之后解压，先使用记事本打开 <code>build.gradle</code> ，在 <code>repositories</code> 添加以下配置：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mavenLocal()</span><br><span class="line">maven &#123;</span><br><span class="line">    url <span class="string">'http://maven.aliyun.com/nexus/content/groups/public/'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>之后使用 IDEA 打开 <code>build.gradle</code> ：</p>
+<p><img src="https://img-blog.csdnimg.cn/20200516130822208.png" style="zoom:80%;" align="left"></p>
+<p>完整 <code>build.gradle</code> 配置文件：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">plugins &#123;</span><br><span class="line">	id <span class="string">'org.springframework.boot'</span> version <span class="string">'2.2.1.RELEASE'</span></span><br><span class="line">	id <span class="string">'io.spring.dependency-management'</span> version <span class="string">'1.0.9.RELEASE'</span></span><br><span class="line">	id <span class="string">'java'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">group = <span class="string">'com.sjh'</span></span><br><span class="line">version = <span class="string">'0.0.1-SNAPSHOT'</span></span><br><span class="line">sourceCompatibility = <span class="string">'1.8'</span></span><br><span class="line"></span><br><span class="line">configurations &#123;</span><br><span class="line">	compileOnly &#123;</span><br><span class="line">		extendsFrom annotationProcessor</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">repositories &#123;</span><br><span class="line">	mavenLocal()</span><br><span class="line">	maven &#123;</span><br><span class="line">            url <span class="string">'http://maven.aliyun.com/nexus/content/groups/public/'</span></span><br><span class="line">       	 &#125;</span><br><span class="line">	mavenCentral()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">dependencies &#123;</span><br><span class="line">	implementation <span class="string">'org.springframework.boot:spring-boot-starter-data-jpa'</span></span><br><span class="line">	implementation <span class="string">'org.springframework.boot:spring-boot-starter-web'</span></span><br><span class="line">	compileOnly <span class="string">'org.projectlombok:lombok'</span></span><br><span class="line">	runtimeOnly <span class="string">'mysql:mysql-connector-java'</span></span><br><span class="line">	annotationProcessor <span class="string">'org.projectlombok:lombok'</span></span><br><span class="line">	testImplementation <span class="string">'org.springframework.boot:spring-boot-starter-test'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>定义一个测试的 Controller：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/test"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestController</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/hello"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">hello</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"HELLO SPRING BOOT"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>找到 <code>src/main/java</code> 下的 SpringBoot 启动类，由于此时还没有配置数据库，需要对<code>@SpringBootApplication</code>注解添加忽视数据库配置的属性（在配置数据库信息后要取消）：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span>(exclude= &#123;DataSourceAutoConfiguration.class&#125;)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpringdatajpaApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		SpringApplication.run(SpringdatajpaApplication.class, args);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后启动该类，访问<code>localhost:8080/test/hello</code>:</p>
+<p><img src="https://img-blog.csdnimg.cn/20200516132153819.png" style="zoom:80%;" align="left"></p>
+<p>此时 Spring Boot 的环境已经成功搭建了。</p>
+<hr>
+<h3 id="创建数据库表"><a href="#创建数据库表" class="headerlink" title="创建数据库表"></a>创建数据库表</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*创建客户表*/</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> customer (</span><br><span class="line">	cust_id <span class="built_in">BIGINT</span>(<span class="number">32</span>) PRIMARY <span class="keyword">KEY</span> AUTO_INCREMENT <span class="keyword">COMMENT</span> <span class="string">'客户编号(主键)'</span>,</span><br><span class="line">	cust_name <span class="built_in">VARCHAR</span>(<span class="number">32</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'客户名称(公司名称)'</span>,</span><br><span class="line">	cust_source <span class="built_in">VARCHAR</span>(<span class="number">32</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'客户信息来源'</span>,</span><br><span class="line">	cust_industry <span class="built_in">VARCHAR</span>(<span class="number">32</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'客户所属行业'</span>,</span><br><span class="line">	cust_level <span class="built_in">VARCHAR</span>(<span class="number">32</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'客户级别'</span>,</span><br><span class="line">	cust_address <span class="built_in">VARCHAR</span>(<span class="number">128</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'客户联系地址'</span>,</span><br><span class="line">	cust_phone <span class="built_in">VARCHAR</span>(<span class="number">64</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'客户联系电话'</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="配置数据库信息"><a href="#配置数据库信息" class="headerlink" title="配置数据库信息"></a>配置数据库信息</h3><p>在  <code>src/main/resources</code> 下新建 <code>application.yml</code> 配置文件：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">  datasource:</span></span><br><span class="line"><span class="attr">    url:</span> <span class="attr">jdbc:mysql:///test?characterEncoding=UTF-8&amp;serverTimezone=UTC</span></span><br><span class="line"><span class="attr">    username:</span> <span class="string">root</span></span><br><span class="line"><span class="attr">    password:</span> <span class="string">sjh2019</span></span><br><span class="line"><span class="attr">    driver-class-name:</span> <span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line"><span class="attr">  jpa:</span></span><br><span class="line"><span class="attr">    show-sql:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    properties:</span></span><br><span class="line"><span class="attr">      hibernate:</span></span><br><span class="line"><span class="attr">        format_sql:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="创建实体类"><a href="#创建实体类" class="headerlink" title="创建实体类"></a>创建实体类</h3><p><code>@Table</code> 关联实体类和表</p>
+<p><code>@Column</code> 关联实体类属性和表中字段</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Getter</span><span class="meta">@Setter</span><span class="comment">//Lombok的注解，自动生成getter、setter方法</span></span><br><span class="line"><span class="meta">@Entity</span><span class="comment">//表明是一个实体类</span></span><br><span class="line"><span class="meta">@Table</span>(name = <span class="string">"customer"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Customer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Id</span><span class="comment">//声明主键</span></span><br><span class="line">    <span class="meta">@GeneratedValue</span>(strategy = GenerationType.IDENTITY)<span class="comment">//配置主键生产策略</span></span><br><span class="line">    <span class="meta">@Column</span>(name = <span class="string">"cust_id"</span>)</span><br><span class="line">    <span class="keyword">private</span> Long id;<span class="comment">//主键</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Column</span>(name = <span class="string">"cust_name"</span>)</span><br><span class="line">    <span class="keyword">private</span> String name;<span class="comment">//名称</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Column</span>(name = <span class="string">"cust_source"</span>)</span><br><span class="line">    <span class="keyword">private</span> String source;<span class="comment">//来源</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Column</span>(name = <span class="string">"cust_industry"</span>)</span><br><span class="line">    <span class="keyword">private</span> String industry;<span class="comment">//行业</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Column</span>(name = <span class="string">"cust_level"</span>)</span><br><span class="line">    <span class="keyword">private</span> String level;<span class="comment">//级别</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Column</span>(name = <span class="string">"cust_address"</span>)</span><br><span class="line">    <span class="keyword">private</span> String address;<span class="comment">//地址</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Column</span>(name = <span class="string">"cust_phone"</span>)</span><br><span class="line">    <span class="keyword">private</span> String phone;<span class="comment">//联系方式</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>@Table</code> 注解报错其实是不影响正常执行的，如果要解决该问题，只需要配置一下IDEA的Database即可：</p>
+<p><img src="https://img-blog.csdnimg.cn/202005161357545.png" style="zoom:80%;" align="left"></p>
+<hr>
+<h3 id="编写持久层接口"><a href="#编写持久层接口" class="headerlink" title="编写持久层接口"></a>编写持久层接口</h3><p>只需要继承 JpaRepository 即可，泛型参数列表中第一个参数是实体类类型，第二个参数是主键类型。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">CustomerRepo</span> <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">Customer</span>,<span class="title">Long</span>&gt; </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h3><p><strong>根据 id 查询</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RunWith</span>(SpringRunner.class)</span><br><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CustomerRepoTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> CustomerRepo customerRepo;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findById</span><span class="params">()</span></span>&#123;</span><br><span class="line">        Optional&lt;Customer&gt; customer = customerRepo.findById(<span class="number">1L</span>);</span><br><span class="line">        System.out.println(customer);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>结果（需要事先插入一些测试数据）：</p>
+<p><img src="https://img-blog.csdnimg.cn/20200516153619624.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMTEyMjM4,size_16,color_FFFFFF,t_70" style="zoom: 67%;" align="left"></p>
+<hr>
+<p><strong>查询所有</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findAll</span><span class="params">()</span></span>&#123;</span><br><span class="line">    List&lt;Customer&gt; customers = customerRepo.findAll();</span><br><span class="line">    System.out.println(customers);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由于只插入了一条测试数据，结果仍然只有一条，但是可以发现 SQL 语句是不同的，不再有 WHERE 筛选：</p>
+<p><img src="https://img-blog.csdnimg.cn/20200516155055419.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMTEyMjM4,size_16,color_FFFFFF,t_70" style="zoom: 67%;" align="left"></p>
+<hr>
+<h3 id="添加和修改"><a href="#添加和修改" class="headerlink" title="添加和修改"></a>添加和修改</h3><p><strong>添加</strong></p>
+<p>如果添加对象的 id 在表中还不存在，会执行添加操作。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">save</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Customer customer = <span class="keyword">new</span> Customer();</span><br><span class="line">    customer.setId(<span class="number">3L</span>);</span><br><span class="line">    customer.setName(<span class="string">"kobe"</span>);</span><br><span class="line">    customerRepo.save(customer);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此时数据库没有 id=3 的记录，根据 SQL 语句可以发现执行的是 insert 操作。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200516155801792.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMTEyMjM4,size_16,color_FFFFFF,t_70" style="zoom: 67%;" align="left"></p>
+<hr>
+<p><strong>修改</strong></p>
+<p>如果添加对象的 id 在表中已经存在，会执行更新操作。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Customer customer = <span class="keyword">new</span> Customer();</span><br><span class="line">    customer.setId(<span class="number">3L</span>);</span><br><span class="line">    customer.setName(<span class="string">"sjh"</span>);</span><br><span class="line">    customerRepo.save(customer);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此时数据库有 id=3 的记录，根据 SQL 语句可以发现执行的是 update 操作。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200516160059432.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMTEyMjM4,size_16,color_FFFFFF,t_70" style="zoom: 67%;" align="left"></p>
+<hr>
+<h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">()</span></span>&#123;</span><br><span class="line">    customerRepo.deleteById(<span class="number">3L</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以发现此时 SQL 执行的是 delete 操作：</p>
+<p><img src="https://img-blog.csdnimg.cn/2020051616041717.png" style="zoom: 67%;" align="left"></p>
+<hr>
+<p><strong>执行过程和原理总结：</strong></p>
+<ul>
+<li>通过 <code>JdkDynamicAopProxy</code> 的 <code>invoke</code> 方法创建了一个动态代理对象 <code>SimpleJpaRepository</code>。</li>
+<li><code>SimpleJpaRepository</code> 中封装了JPA的操作。</li>
+<li>通过 <code>hibernate</code>（封装了JDBC）完成数据库操作。</li>
+</ul>
+<hr>
+<h2 id="复杂查询"><a href="#复杂查询" class="headerlink" title="复杂查询"></a>复杂查询</h2><h3 id="接口方法查询"><a href="#接口方法查询" class="headerlink" title="接口方法查询"></a>接口方法查询</h3><h4 id="统计总数"><a href="#统计总数" class="headerlink" title="统计总数"></a>统计总数</h4><p>使用 <code>count()</code> 方法查询总数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">count</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">long</span> count = customerRepo.count();</span><br><span class="line">    System.out.println(<span class="string">"记录数："</span>+count);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行的 SQL 语句和结果：</p>
+<p><img src="https://img-blog.csdnimg.cn/20200516162655992.png" style="zoom:80%;" align="left"></p>
+<hr>
+<h4 id="判断存在"><a href="#判断存在" class="headerlink" title="判断存在"></a>判断存在</h4><p>使用 <code>existsById()</code> 方法根据 id 查询满足条件的记录数，如果值大于0代表存在，反之。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">exists</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">boolean</span> exists = customerRepo.existsById(<span class="number">2L</span>);</span><br><span class="line">    System.out.println(<span class="string">"该客户记录："</span>+ (exists?<span class="string">"存在"</span>:<span class="string">"不存在"</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行的 SQL 语句和结果：</p>
+<p><img src="https://img-blog.csdnimg.cn/20200516163355123.png" style="zoom: 67%;" align="left"></p>
+<hr>
+<h4 id="根据-id-查询"><a href="#根据-id-查询" class="headerlink" title="根据 id 查询"></a>根据 id 查询</h4><p>与之前不同的是，使用 <code>getOne()</code> 方法根据 id 查询。</p>
+<p>注意使用 <code>getOne()</code> 方法要加上 <code>@Transactional</code> 注解，否则无法正常执行。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="meta">@Transactional</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getOne</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Customer one = customerRepo.getOne(<span class="number">1L</span>);</span><br><span class="line">    System.out.println(one);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行的 SQL 语句和结果：</p>
+<p><img src="https://img-blog.csdnimg.cn/20200516163900609.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMTEyMjM4,size_16,color_FFFFFF,t_70" style="zoom: 67%;" align="left"></p>
+<hr>
+<p><strong>与 <code>findById()</code> 方法的不同：</strong></p>
+<p><code>findById()</code> 调用 <code>find</code> 方法，属于立即加载<br><code>getOne()</code> 调用 <code>getReference</code> 方法，获得的是一个动态代理对象，属于延迟加载，使用时才进行查询，需要事务的支持。</p>
+<hr>
+<h3 id="使用-JPQL-查询"><a href="#使用-JPQL-查询" class="headerlink" title="使用 JPQL 查询"></a>使用 JPQL 查询</h3><p><strong>根据名称查询</strong></p>
+<p>在接口中增加一个根据名称查询的方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//根据客户名称查询</span></span><br><span class="line"><span class="meta">@Query</span>(value = <span class="string">"from Customer where name = ?1 "</span>)<span class="comment">//?1表示参数列表的第一个参数</span></span><br><span class="line"><span class="function">Customer <span class="title">findByName</span><span class="params">(String name)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>测试类和方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RunWith</span>(SpringRunner.class)</span><br><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CustomerRepoJPQLTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> CustomerRepo customerRepo;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findByName</span><span class="params">()</span></span>&#123;</span><br><span class="line">        Customer sjh = customerRepo.findByName(<span class="string">"sjh"</span>);</span><br><span class="line">        System.out.println(sjh);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行的 SQL 和结果：</p>
+<p><img src="https://img-blog.csdnimg.cn/20200516170314729.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMTEyMjM4,size_16,color_FFFFFF,t_70" style="zoom: 67%;" align="left"></p>
+<hr>
+<p><strong>根据 id 和名称查询</strong></p>
+<p>接口方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//根据客户id和名称查询</span></span><br><span class="line"><span class="meta">@Query</span>(value = <span class="string">"from Customer where id = ?1 and name = ?2 "</span>)</span><br><span class="line"><span class="function">Customer <span class="title">findByIdAndName</span><span class="params">(Long id, String name)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>测试方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findByIdAndName</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Customer sjh = customerRepo.findByIdAndName(<span class="number">4L</span>,<span class="string">"sjh2"</span>);</span><br><span class="line">    System.out.println(sjh);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行的 SQL 和结果：</p>
+<p><img src="https://img-blog.csdnimg.cn/20200516171100959.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMTEyMjM4,size_16,color_FFFFFF,t_70" style="zoom: 67%;" align="left"></p>
+<hr>
+<p><strong>根据 id 来更新客户名称</strong></p>
+<p>接口方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//根据客户id更新名称</span></span><br><span class="line"><span class="meta">@Query</span>(value = <span class="string">"update Customer set name = ?2 where id = ?1 "</span>)</span><br><span class="line"><span class="meta">@Modifying</span><span class="comment">//更新和删除操作要使用该注解表明是修改操作</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">updateNameById</span><span class="params">(Long id, String name)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>测试方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="meta">@Transactional</span><span class="comment">//JPQL除了查询之外的修改操作需要事务支持</span></span><br><span class="line"><span class="meta">@Rollback</span>(value = <span class="keyword">false</span>)<span class="comment">//默认回滚，需要取消该属性</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">updateNameById</span><span class="params">()</span></span>&#123;</span><br><span class="line">    customerRepo.updateNameById(<span class="number">1L</span>,<span class="string">"sjh1"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行的 SQL 和结果：</p>
+<p><img src="https://img-blog.csdnimg.cn/20200516173645430.png" style="zoom: 67%;" align="left"></p>
+<hr>
+<h3 id="SQL-查询"><a href="#SQL-查询" class="headerlink" title="SQL 查询"></a>SQL 查询</h3><p><strong>查询全部</strong></p>
+<p>接口方法：</p>
+<p>nativeQuery 属性代表是否使用本地查询，false是默认值即使用 JPQL 查询， true表示使用 SQL 查询。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Query</span>(value = <span class="string">"select * from customer"</span>, nativeQuery = <span class="keyword">true</span>)</span><br><span class="line"><span class="function">List&lt;Customer&gt; <span class="title">findAllBySQL</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+<p>测试方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findAllBySQL</span><span class="params">()</span></span>&#123;</span><br><span class="line">    List&lt;Customer&gt; customers = customerRepo.findAllBySQL();</span><br><span class="line">    System.out.println(customers);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行的 SQL 和结果：</p>
+<p><img src="https://img-blog.csdnimg.cn/20200516175208415.png" style="zoom: 67%;" align="left"></p>
+<hr>
+<p><strong>模糊查询</strong></p>
+<p>接口方法：</p>
+<p>nativeQuery 属性代表是否使用本地查询，false是默认值即使用 JPQL 查询， true表示使用 SQL 查询。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Query</span>(value = <span class="string">"select * from customer where cust_name like ?1 "</span>,nativeQuery = <span class="keyword">true</span>)</span><br><span class="line"><span class="function">List&lt;Customer&gt; <span class="title">findByNameLike</span><span class="params">(String pattern)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>测试方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findByNameLike</span><span class="params">()</span></span>&#123;</span><br><span class="line">    List&lt;Customer&gt; customers = customerRepo.findByNameLike(<span class="string">"sjh%"</span>);</span><br><span class="line">    System.out.println(customers);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行的 SQL 和结果：</p>
+<p><img src="https://img-blog.csdnimg.cn/20200516175629432.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMTEyMjM4,size_16,color_FFFFFF,t_70" style="zoom: 67%;"></p>
+<hr>
+<h3 id="方法名称规则查询"><a href="#方法名称规则查询" class="headerlink" title="方法名称规则查询"></a>方法名称规则查询</h3><p>是对 JPQL 的封装，只需要按照 Spring Data JPA 提供的方法名称规则定义方法，不需要再进行配置。</p>
+<p><code>findBy</code>+ 查询条件，在运行阶段会根据方法名称进行解析。</p>
+<p><strong>基础查询</strong></p>
+<p>根据 id 查询 ：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Optional&lt;Customer&gt; <span class="title">findById</span><span class="params">(Long id)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>根据名称查询：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Customer <span class="title">findByName</span><span class="params">(String name)</span></span>;</span><br></pre></td></tr></table></figure>
+<hr>
+<p><strong>模糊查询</strong></p>
+<p>根据名称模糊查询：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Customer <span class="title">findByNameLike</span><span class="params">(String name)</span></span>;</span><br></pre></td></tr></table></figure>
+<hr>
+<p><strong>多条件查询</strong></p>
+<p>根据 id 和名称精确查询：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Customer <span class="title">findByIdAndName</span><span class="params">(Long id, String name)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>根据名称模糊查询和行业精准查询：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Customer <span class="title">findByNameLikeAndIndustry</span><span class="params">(String name, String industry)</span></span>;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="Specifications动态查询"><a href="#Specifications动态查询" class="headerlink" title="Specifications动态查询"></a>Specifications动态查询</h2><p>使用动态查询需要继承另一个接口<code>JpaSpecificationExecutor</code>，泛型参数为实体类类型：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">CustomerRepo</span> <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">Customer</span>,<span class="title">Long</span>&gt;, <span class="title">JpaSpecificationExecutor</span>&lt;<span class="title">Customer</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>该接口的方法包括：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">JpaSpecificationExecutor</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//查询单个对象</span></span><br><span class="line">    <span class="function">Optional&lt;T&gt; <span class="title">findOne</span><span class="params">(@Nullable Specification&lt;T&gt; var1)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//查询全部</span></span><br><span class="line">    <span class="function">List&lt;T&gt; <span class="title">findAll</span><span class="params">(@Nullable Specification&lt;T&gt; var1)</span></span>;</span><br><span class="line">	</span><br><span class="line">    <span class="comment">//查询全部并分页，Pageable是分页参数</span></span><br><span class="line">    <span class="function">Page&lt;T&gt; <span class="title">findAll</span><span class="params">(@Nullable Specification&lt;T&gt; var1, Pageable var2)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//查询全部并排序，Sort是排序参数</span></span><br><span class="line">    <span class="function">List&lt;T&gt; <span class="title">findAll</span><span class="params">(@Nullable Specification&lt;T&gt; var1, Sort var2)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//统计总数</span></span><br><span class="line">    <span class="function"><span class="keyword">long</span> <span class="title">count</span><span class="params">(@Nullable Specification&lt;T&gt; var1)</span></span>;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Specification 代表的是查询条件，是一个接口，需要自定义实现该接口的<code>toPredicate</code>方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Nullable</span></span><br><span class="line"><span class="function">Predicate <span class="title">toPredicate</span><span class="params">(Root&lt;T&gt; var1, CriteriaQuery&lt;?&gt; var2, CriteriaBuilder var3)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>root 代表查询的根对象，封装了查询属性；CriteriaQuery 代表顶层查询对象（一般不用）；CriteriaBuilder代表查询构造器，封装了查询条件。</p>
+<hr>
+<h3 id="条件查询"><a href="#条件查询" class="headerlink" title="条件查询"></a>条件查询</h3><p><strong>查询名称为 sjh 的记录：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RunWith</span>(SpringRunner.class)</span><br><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CustomerRepoSpecTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> CustomerRepo customerRepo;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findOne</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//构建自定义查询条件</span></span><br><span class="line">        Specification&lt;Customer&gt; spec = (Specification&lt;Customer&gt;) (root, criteriaQuery, criteriaBuilder) -&gt; &#123;</span><br><span class="line">            Path&lt;Object&gt; name = root.get(<span class="string">"name"</span>);<span class="comment">//获取比较的属性</span></span><br><span class="line">            <span class="keyword">return</span> criteriaBuilder.equal(name, <span class="string">"sjh"</span>);</span><br><span class="line">        &#125;;</span><br><span class="line">        Optional&lt;Customer&gt; customer = customerRepo.findOne(spec);</span><br><span class="line">        System.out.println(customer);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行的 SQL 和结果：</p>
+<p><img src="https://img-blog.csdnimg.cn/2020051710013969.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMTEyMjM4,size_16,color_FFFFFF,t_70" style="zoom: 67%;" align="left"></p>
+<hr>
+<p><strong>查询名称为 sjh，行业为 it 的记录：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findOne2</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Specification&lt;Customer&gt; spec = (Specification&lt;Customer&gt;) (root, criteriaQuery, criteriaBuilder) -&gt; &#123;</span><br><span class="line">        Path&lt;Object&gt; name = root.get(<span class="string">"name"</span>);</span><br><span class="line">        Path&lt;Object&gt; industry = root.get(<span class="string">"industry"</span>);</span><br><span class="line">        Predicate p1 = criteriaBuilder.equal(name, <span class="string">"sjh"</span>);</span><br><span class="line">        Predicate p2 = criteriaBuilder.equal(industry, <span class="string">"it"</span>);</span><br><span class="line">        <span class="keyword">return</span> criteriaBuilder.and(p1,p2);</span><br><span class="line">    &#125;;</span><br><span class="line">    Optional&lt;Customer&gt; customer = customerRepo.findOne(spec);</span><br><span class="line">    System.out.println(customer);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行的 SQL 和结果：</p>
+<p><img src="https://img-blog.csdnimg.cn/2020051710060266.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMTEyMjM4,size_16,color_FFFFFF,t_70" style="zoom: 67%;" align="left"></p>
+<hr>
+<p><strong>根据客户名称模糊查询：</strong></p>
+<p>对于 gt、lt、ge、le、like 等比较需要将 path 对象通过 <code>as(Class&lt;X&gt; var1)</code> 方法转换成相应的类型参数。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findAll</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Specification&lt;Customer&gt; spec = (Specification&lt;Customer&gt;) (root, criteriaQuery, criteriaBuilder) -&gt; &#123;</span><br><span class="line">        Path&lt;Object&gt; name = root.get(<span class="string">"name"</span>);</span><br><span class="line">        <span class="keyword">return</span> criteriaBuilder.like(name.as(String.class),<span class="string">"s%"</span>);</span><br><span class="line">    &#125;;</span><br><span class="line">    List&lt;Customer&gt; customers = customerRepo.findAll(spec);</span><br><span class="line">    System.out.println(customers);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行的 SQL 和结果：</p>
+<p><img src="https://img-blog.csdnimg.cn/20200517101039732.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMTEyMjM4,size_16,color_FFFFFF,t_70" style="zoom: 67%;" align="left"></p>
+<hr>
+<h3 id="条件-排序查询"><a href="#条件-排序查询" class="headerlink" title="条件+排序查询"></a>条件+排序查询</h3><p><strong>根据名称模糊查询+根据 id 倒序排序：</strong></p>
+<p>使用 <code>Sort.by()</code>方法创建排序对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findSort</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Specification&lt;Customer&gt; spec = (Specification&lt;Customer&gt;) (root, criteriaQuery, criteriaBuilder) -&gt; &#123;</span><br><span class="line">        Path&lt;Object&gt; name = root.get(<span class="string">"name"</span>);</span><br><span class="line">        <span class="keyword">return</span> criteriaBuilder.like(name.as(String.class),<span class="string">"s%"</span>);</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="comment">//创建排序对象</span></span><br><span class="line">    Sort sort = Sort.by(Sort.Direction.DESC, <span class="string">"id"</span>);</span><br><span class="line">    List&lt;Customer&gt; customers = customerRepo.findAll(spec, sort);</span><br><span class="line">    System.out.println(customers);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行的 SQL 和结果：</p>
+<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200517102119993.png" style="zoom:67%;" align="left"></p>
+<hr>
+<h3 id="条件-分页查询"><a href="#条件-分页查询" class="headerlink" title="条件+分页查询"></a>条件+分页查询</h3><p><strong>分页查询，查询第1页，每页显示2条：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findPage</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Specification&lt;Customer&gt; spec = <span class="keyword">null</span>;</span><br><span class="line">    Pageable pageable = PageRequest.of(<span class="number">0</span>,<span class="number">2</span>);</span><br><span class="line">    <span class="comment">//创建分页对象</span></span><br><span class="line">    Page&lt;Customer&gt; customers = customerRepo.findAll(spec, pageable);</span><br><span class="line">    System.out.println(<span class="string">"总条数："</span> + customers.getTotalElements());</span><br><span class="line">    System.out.println(<span class="string">"页数"</span>+ customers.getTotalPages());</span><br><span class="line">    System.out.println(<span class="string">"数据"</span>+ customers.getContent());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行的 SQL 和结果：</p>
+<p><img src="https://img-blog.csdnimg.cn/20200517103148337.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMTEyMjM4,size_16,color_FFFFFF,t_70" style="zoom:67%;" align="left"></p>
+<hr>
+<h2 id="多表查询"><a href="#多表查询" class="headerlink" title="多表查询"></a>多表查询</h2><h3 id="一对多"><a href="#一对多" class="headerlink" title="一对多"></a>一对多</h3><p>一的一方为主表，多的一方为从表，需要在从表新建一列作为外键，取值来源于主表的主键。</p>
+<p>主表使用之前的 customer 表，从表使用 linkman 表。</p>
+<ul>
+<li>一对一</li>
+<li>一对多<br>一的一方为主表，多的一方为从表，需要在从表新建一列作为外键，取值来源于主表的主键</li>
+<li>多对多<br>需要一张中间表，最少需要两个字段作为外键指向两张表的主键，组成了联合主键</li>
+</ul>
+<p><strong>实体类关系</strong></p>
+<ul>
+<li>包含 通过实体类的包含关系描述表关系</li>
+<li>继承</li>
+</ul>
+<p><strong>步骤</strong></p>
+<ul>
+<li>明确表关系</li>
+<li>确定表关系（描述 通过外键|中间表）</li>
+<li>编写实体类，在实体类中描述表关系（包含关系）</li>
+<li>配置映射关系</li>
+</ul>
+<h4 id="创建-linkman-表"><a href="#创建-linkman-表" class="headerlink" title="创建 linkman 表"></a>创建 linkman 表</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*创建联系人表*/</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> linkman (</span><br><span class="line">  lkm_id <span class="built_in">BIGINT</span>(<span class="number">32</span>) PRIMARY <span class="keyword">KEY</span> AUTO_INCREMENT <span class="keyword">COMMENT</span> <span class="string">'联系人编号(主键)'</span>,</span><br><span class="line">  lkm_name <span class="built_in">VARCHAR</span>(<span class="number">16</span>)  <span class="keyword">COMMENT</span> <span class="string">'联系人姓名'</span>,</span><br><span class="line">  lkm_gender <span class="built_in">CHAR</span>(<span class="number">1</span>)  <span class="keyword">COMMENT</span> <span class="string">'联系人性别'</span>,</span><br><span class="line">  lkm_phone <span class="built_in">VARCHAR</span>(<span class="number">16</span>)  <span class="keyword">COMMENT</span> <span class="string">'联系人办公电话'</span>,</span><br><span class="line">  lkm_mobile <span class="built_in">VARCHAR</span>(<span class="number">16</span>)  <span class="keyword">COMMENT</span> <span class="string">'联系人手机'</span>,</span><br><span class="line">  lkm_email <span class="built_in">VARCHAR</span>(<span class="number">64</span>)  <span class="keyword">COMMENT</span> <span class="string">'联系人邮箱'</span>,</span><br><span class="line">  lkm_position <span class="built_in">VARCHAR</span>(<span class="number">16</span>)  <span class="keyword">COMMENT</span> <span class="string">'联系人职位'</span>,</span><br><span class="line">  lkm_memo <span class="built_in">VARCHAR</span>(<span class="number">512</span>)  <span class="keyword">COMMENT</span> <span class="string">'联系人备注'</span>,</span><br><span class="line">  lkm_cust_id <span class="built_in">BIGINT</span>(<span class="number">32</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'客户id(外键)'</span>,</span><br><span class="line">  <span class="keyword">CONSTRAINT</span> <span class="string">`FK_cst_linkman_lkm_cust_id`</span> <span class="keyword">FOREIGN</span> <span class="keyword">KEY</span> (<span class="string">`lkm_cust_id`</span>) <span class="keyword">REFERENCES</span> <span class="string">`customer`</span> (<span class="string">`cust_id`</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="创建实体类和对应接口"><a href="#创建实体类和对应接口" class="headerlink" title="创建实体类和对应接口"></a>创建实体类和对应接口</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Getter</span><span class="meta">@Setter</span></span><br><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="meta">@Table</span>(name=<span class="string">"linkman"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Linkman</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Id</span></span><br><span class="line">    <span class="meta">@GeneratedValue</span>(strategy = GenerationType.IDENTITY)</span><br><span class="line">    <span class="meta">@Column</span>(name = <span class="string">"lkm_id"</span>)</span><br><span class="line">    <span class="keyword">private</span> Long id;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Column</span>(name =<span class="string">"lkm_name"</span> )</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Column</span>(name = <span class="string">"lkm_gender"</span>)</span><br><span class="line">    <span class="keyword">private</span> String gender;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Column</span>(name = <span class="string">"lkm_phone"</span>)</span><br><span class="line">    <span class="keyword">private</span> String phone;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Column</span>(name = <span class="string">"lkm_mobile"</span>)</span><br><span class="line">    <span class="keyword">private</span> String mobile;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Column</span>(name = <span class="string">"lkm_email"</span>)</span><br><span class="line">    <span class="keyword">private</span> String email;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Column</span>(name = <span class="string">"lkm_position"</span>)</span><br><span class="line">    <span class="keyword">private</span> String position;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Column</span>(name = <span class="string">"lkm_memo"</span>)</span><br><span class="line">    <span class="keyword">private</span> String memo;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-----</span><br><span class="line">    </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">LinkmanRepo</span> <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">Linkman</span>,<span class="title">Long</span>&gt; </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="配置关系"><a href="#配置关系" class="headerlink" title="配置关系"></a>配置关系</h4><p><strong>在 Customer 类配置一对多关系</strong>：</p>
+<p><code>@OneToMany</code> ：配置一对多关系，mappedBy属性 = 主表实体类在从表实体类中对应的属性名。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@OneToMany</span>(mappedBy = <span class="string">"customer"</span>)</span><br><span class="line"><span class="meta">@JoinColumn</span>(name =<span class="string">"lkm_cust_id"</span> ,referencedColumnName = <span class="string">"cust_id"</span>)</span><br><span class="line"><span class="keyword">private</span> Set&lt;Linkman&gt; linkmen=<span class="keyword">new</span> HashSet&lt;&gt;();</span><br></pre></td></tr></table></figure>
+<p><strong>在 Linkman 类配置多对一关系</strong>：</p>
+<p>在从表一方维护外键关系，提示效率。</p>
+<p><code>@ManyToOne</code> ：配置多对一关系，targetEntity属性 = 主表对应实体类的字节码。</p>
+<p><code>@JoinColumn</code>：配置外键关系，name = 外键名称，referencedColumnName = 主表主键名称。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ManyToOne</span>(targetEntity = Customer.class)</span><br><span class="line"><span class="meta">@JoinColumn</span>(name =<span class="string">"lkm_cust_id"</span> ,referencedColumnName = <span class="string">"cust_id"</span>)</span><br><span class="line"><span class="keyword">private</span> Customer customer;</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="添加记录"><a href="#添加记录" class="headerlink" title="添加记录"></a><strong>添加记录</strong></h4><p>测试类和方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RunWith</span>(SpringRunner.class)</span><br><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OneToManyTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> CustomerRepo customerRepo;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> LinkmanRepo linkmanRepo;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="meta">@Transactional</span></span><br><span class="line">    <span class="meta">@Rollback</span>(value = <span class="keyword">false</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">save</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//创建客户和联系人</span></span><br><span class="line">        Customer customer = <span class="keyword">new</span> Customer();</span><br><span class="line">        customer.setName(<span class="string">"customer"</span>);</span><br><span class="line">        Linkman linkman = <span class="keyword">new</span> Linkman();</span><br><span class="line">        linkman.setName(<span class="string">"linkman"</span>);</span><br><span class="line">        <span class="comment">//保存外键关系</span></span><br><span class="line">        linkman.setCustomer(customer);</span><br><span class="line">        <span class="comment">//保存客户和联系人</span></span><br><span class="line">        customerRepo.save(customer);</span><br><span class="line">        linkmanRepo.save(linkman);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行的 SQL 和结果：</p>
+<p><img src="https://img-blog.csdnimg.cn/20200517112449880.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMTEyMjM4,size_16,color_FFFFFF,t_70" style="zoom:67%;" align="left"></p>
+<hr>
+<h4 id="删除记录"><a href="#删除记录" class="headerlink" title="删除记录"></a>删除记录</h4><p><strong>删除从表数据：</strong>可以任意删除。<br><strong>删除主表数据：</strong></p>
+<ul>
+<li><p>有从表数据</p>
+<ul>
+<li>在默认情况下，它会把外键字段置为null，然后删除主表数据。如果在数据库的表 结构上，外键字段有非空约束，默认情况就会报错。</li>
+<li>如果配置了放弃维护关联关系的权利，则不能删除（与外键字段是否允许为null， 没有关系）因为在删除时，它根本不会去更新从表的外键字段了。</li>
+<li>如果还想删除，使用级联删除。</li>
+</ul>
+</li>
+<li><p>没有从表数据引用：随便删</p>
+</li>
+</ul>
+<hr>
+<h4 id="级联操作"><a href="#级联操作" class="headerlink" title="级联操作"></a>级联操作</h4><p>指操作一个对象同时操作它的关联对象<br>使用方法：只需要在操作主体的注解上配置 <code>cascade</code> 属性。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//配置一对多关系</span></span><br><span class="line"><span class="meta">@OneToMany</span>(mappedBy = <span class="string">"customer"</span>,cascade = CascadeType.ALL)</span><br><span class="line"><span class="keyword">private</span> Set&lt;Linkman&gt; linkmen = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br></pre></td></tr></table></figure>
+<p><strong>级联添加：</strong></p>
+<p>只需要保存客户就可以保存联系人</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="meta">@Transactional</span></span><br><span class="line"><span class="meta">@Rollback</span>(<span class="keyword">false</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">save</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//创建客户和联系人</span></span><br><span class="line">    Customer customer = <span class="keyword">new</span> Customer();</span><br><span class="line">    customer.setName(<span class="string">"customer"</span>);</span><br><span class="line">    Linkman linkman = <span class="keyword">new</span> Linkman();</span><br><span class="line">    linkman.setName(<span class="string">"linkman"</span>);</span><br><span class="line">    <span class="comment">//保存外键关系</span></span><br><span class="line">    linkman.setCustomer(customer);</span><br><span class="line">    customer.getLinkmen().add(linkman);</span><br><span class="line">    <span class="comment">//保存客户和联系人</span></span><br><span class="line">    customerRepo.save(customer);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行的 SQL 和结果：</p>
+<p><img src="https://img-blog.csdnimg.cn/20200517120420989.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMTEyMjM4,size_16,color_FFFFFF,t_70" style="zoom:67%;" align="left"></p>
+<hr>
+<p><strong>级联删除：</strong></p>
+<p>只需要删除客户就可以删除联系人</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="meta">@Transactional</span></span><br><span class="line"><span class="meta">@Rollback</span>(<span class="keyword">false</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Customer customer = customerRepo.getOne(<span class="number">13L</span>);</span><br><span class="line">    customerRepo.delete(customer);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行的 SQL 和结果：</p>
+<p><img src="https://img-blog.csdnimg.cn/20200517121244629.png" style="zoom:67%;" align="left"></p>
+<hr>
+<h4 id="对象导航查询"><a href="#对象导航查询" class="headerlink" title="对象导航查询"></a>对象导航查询</h4><p>含义：查询一个对象（get方法查询）的同时，通过此对象可以查询它的关联对象。</p>
+<p>对象导航查询一到多默认使用延迟加载的形式查询， 关联对象是集合，使用立即加载可能浪费资源。</p>
+<p>对象导航查询多到一默认使用立即加载的形式查询， 关联对象是一个对象，所以使用立即加载。</p>
+<p>如果要改变加载方式，在实体类注解配置加上fetch属性即可，LAZY 表示延迟加载，EAGER 表示立即加载。</p>
+<hr>
+<h3 id="多对多"><a href="#多对多" class="headerlink" title="多对多"></a>多对多</h3><h4 id="创建数据库表-1"><a href="#创建数据库表-1" class="headerlink" title="创建数据库表"></a>创建数据库表</h4><p>创建一个 user 表，字段为 id 和 name。</p>
+<p>创建一个 role 表，字段为 id 和 name。</p>
+<p>创建一个 user_role 中间表 ，字段为 uid 和 rid。</p>
+<hr>
+<h4 id="创建对应实体类"><a href="#创建对应实体类" class="headerlink" title="创建对应实体类"></a>创建对应实体类</h4><p><code>@ManyToMany</code>：配置多表之间的关系，<code>targetEntity</code> = 对方实体类的class对象。</p>
+<p><code>@JoinTable</code>：配置中间表关系，<code>name</code> = 中间表表名，<code>joinColumns</code> 配置自己在中间表的字段和对应实体类的属性，<code>inverseJoinColumns</code>配置对方在中间表的字段和对应实体类的属性。</p>
+<p><strong>User类：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Getter</span><span class="meta">@Setter</span></span><br><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="meta">@Table</span>(name = <span class="string">"user"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Id</span></span><br><span class="line">    <span class="meta">@GeneratedValue</span>(strategy = GenerationType.IDENTITY)</span><br><span class="line">    <span class="meta">@Column</span>(name = <span class="string">"id"</span>)</span><br><span class="line">    <span class="keyword">private</span> Long id;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Column</span>(name = <span class="string">"name"</span>)</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ManyToMany</span>(targetEntity = Role.class)</span><br><span class="line">    <span class="meta">@JoinTable</span>(name = <span class="string">"user_role"</span>,</span><br><span class="line">            joinColumns = &#123;<span class="meta">@JoinColumn</span>(name = <span class="string">"uid"</span>,referencedColumnName = <span class="string">"id"</span>)&#125;,</span><br><span class="line">            inverseJoinColumns = &#123;<span class="meta">@JoinColumn</span>(name =<span class="string">"rid"</span> ,referencedColumnName =<span class="string">"id"</span> )&#125;)</span><br><span class="line">    <span class="keyword">private</span> Set&lt;Role&gt; roles=<span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Role类：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Getter</span></span><br><span class="line"><span class="meta">@Setter</span></span><br><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="meta">@Table</span>(name = <span class="string">"role"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Role</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Id</span></span><br><span class="line">    <span class="meta">@GeneratedValue</span>(strategy = GenerationType.IDENTITY)</span><br><span class="line">    <span class="meta">@Column</span>(name = <span class="string">"id"</span>)</span><br><span class="line">    <span class="keyword">private</span> Long id;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Column</span>(name = <span class="string">"name"</span>)</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@ManyToMany</span>(targetEntity = User.class)</span><br><span class="line">    <span class="meta">@JoinTable</span>(name = <span class="string">"user_role"</span>,</span><br><span class="line">            joinColumns = &#123;<span class="meta">@JoinColumn</span>(name = <span class="string">"rid"</span>,referencedColumnName = <span class="string">"id"</span>)&#125;,</span><br><span class="line">            inverseJoinColumns = &#123;<span class="meta">@JoinColumn</span>(name =<span class="string">"uid"</span> ,referencedColumnName =<span class="string">"id"</span> )&#125;)</span><br><span class="line">    <span class="keyword">private</span> Set&lt;User&gt; users=<span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="创建接口"><a href="#创建接口" class="headerlink" title="创建接口"></a>创建接口</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserRepo</span> <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">User</span>,<span class="title">Long</span>&gt; </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line">----------</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">RoleRepo</span> <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">Role</span>,<span class="title">Long</span>&gt; </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="添加记录-1"><a href="#添加记录-1" class="headerlink" title="添加记录"></a>添加记录</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RunWith</span>(SpringRunner.class)</span><br><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ManyToManyTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> UserRepo userRepo;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> RoleRepo roleRepo;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="meta">@Transactional</span></span><br><span class="line">    <span class="meta">@Rollback</span>(<span class="keyword">false</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">save</span><span class="params">()</span></span>&#123;</span><br><span class="line">        User user = <span class="keyword">new</span> User();</span><br><span class="line">        user.setName(<span class="string">"sjh"</span>);</span><br><span class="line">        Role role = <span class="keyword">new</span> Role();</span><br><span class="line">        role.setName(<span class="string">"tw"</span>);</span><br><span class="line"></span><br><span class="line">        user.getRoles().add(role);</span><br><span class="line">        userRepo.save(user);</span><br><span class="line">        roleRepo.save(role);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行的 SQL 和结果：</p>
+<p><img src="https://img-blog.csdnimg.cn/20200517141446387.png" style="zoom:80%;" align="left"></p>
+<hr>
+<p>如果保存方法中，双方同时执行报错操作就会出错：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="meta">@Transactional</span></span><br><span class="line"><span class="meta">@Rollback</span>(<span class="keyword">false</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">save</span><span class="params">()</span></span>&#123;</span><br><span class="line">    ...</span><br><span class="line">        user.getRoles().add(role);</span><br><span class="line">    role.getUsers().add(user);</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在多对多保存中，如果双向都设置关系，意味着双方都维护中间表，都会往中间表插入数据，中间表的2个字段又作为联合主键，所以报错，主键重复，解决保存失败的问题：<strong>只需要在任意一方放弃对中间表的维护权即可</strong>。</p>
+<p>修改 Role 中的外键配置为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ManyToMany</span>(mappedBy = <span class="string">"roles"</span>)</span><br><span class="line"><span class="keyword">private</span> Set&lt;User&gt; users=<span class="keyword">new</span> HashSet&lt;&gt;();</span><br></pre></td></tr></table></figure>
+<p>再次执行保存操作就可以成功执行了。</p>
+<hr>
+<h4 id="级联操作-1"><a href="#级联操作-1" class="headerlink" title="级联操作"></a>级联操作</h4><p>和一对多的级联操作类似，只需要添加 <code>cascade</code>属性</p>
+<p>在 User 类的 roles 属性的 <code>@ManyToMany</code> 添加级联属性</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ManyToMany</span>(targetEntity = Role.class, cascade = CascadeType.ALL)</span><br></pre></td></tr></table></figure>
+<p><strong>测试方法：</strong></p>
+<p>只需要添加用户即可自动添加角色并维护中间表关系。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="meta">@Transactional</span></span><br><span class="line"><span class="meta">@Rollback</span>(<span class="keyword">false</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">save</span><span class="params">()</span></span>&#123;</span><br><span class="line">    User user = <span class="keyword">new</span> User();</span><br><span class="line">    user.setName(<span class="string">"sjh"</span>);</span><br><span class="line">    Role role = <span class="keyword">new</span> Role();</span><br><span class="line">    role.setName(<span class="string">"tw"</span>);</span><br><span class="line">    user.getRoles().add(role);</span><br><span class="line">    userRepo.save(user);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行的 SQL 和结果：</p>
+<p><img src="https://img-blog.csdnimg.cn/20200517142925689.png" style="zoom:80%;" align="left"></p>
+<hr>
+<p>删除也是一样的：</p>
+<p>只需要删除用户就会自动删除对应的角色并维护中间表关系。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="meta">@Transactional</span></span><br><span class="line"><span class="meta">@Rollback</span>(<span class="keyword">false</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">()</span></span>&#123;</span><br><span class="line">    userRepo.deleteById(<span class="number">5L</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行的 SQL 和结果：</p>
+<p><img src="https://img-blog.csdnimg.cn/20200517143214778.png" style="zoom:80%;" align="left"></p>
+<hr>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Spring/" rel="tag"># Spring</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/04/20/hexo优化/" rel="next" title="hexo优化">
+                <i class="fa fa-chevron-left"></i> hexo优化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/04/20/17_SQL 语句例题及解析/" rel="prev" title="SQL 语句例题及解析">
+                SQL 语句例题及解析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/">
+            
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="stone">
+            
+          </a>
+              <p class="site-author-name" itemprop="name">stone</p>
+              <div class="site-description motion-element" itemprop="description">Hungry Fool</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">36</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#相关概念"><span class="nav-number">1.</span> <span class="nav-text">相关概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ORM思想"><span class="nav-number">1.1.</span> <span class="nav-text">ORM思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hibernate框架"><span class="nav-number">1.2.</span> <span class="nav-text">Hibernate框架</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JPA规范"><span class="nav-number">1.3.</span> <span class="nav-text">JPA规范</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spring-Data-JPA概述"><span class="nav-number">1.4.</span> <span class="nav-text">Spring Data JPA概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spring-Data-JPA的特性"><span class="nav-number">1.5.</span> <span class="nav-text">Spring Data JPA的特性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快速入门案例"><span class="nav-number">2.</span> <span class="nav-text">快速入门案例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#搭建-Spring-Boot-环境"><span class="nav-number">2.1.</span> <span class="nav-text">搭建 Spring Boot 环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建数据库表"><span class="nav-number">2.2.</span> <span class="nav-text">创建数据库表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置数据库信息"><span class="nav-number">2.3.</span> <span class="nav-text">配置数据库信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建实体类"><span class="nav-number">2.4.</span> <span class="nav-text">创建实体类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编写持久层接口"><span class="nav-number">2.5.</span> <span class="nav-text">编写持久层接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询"><span class="nav-number">2.6.</span> <span class="nav-text">查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加和修改"><span class="nav-number">2.7.</span> <span class="nav-text">添加和修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除"><span class="nav-number">2.8.</span> <span class="nav-text">删除</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#复杂查询"><span class="nav-number">3.</span> <span class="nav-text">复杂查询</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#接口方法查询"><span class="nav-number">3.1.</span> <span class="nav-text">接口方法查询</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#统计总数"><span class="nav-number">3.1.1.</span> <span class="nav-text">统计总数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#判断存在"><span class="nav-number">3.1.2.</span> <span class="nav-text">判断存在</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#根据-id-查询"><span class="nav-number">3.1.3.</span> <span class="nav-text">根据 id 查询</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-JPQL-查询"><span class="nav-number">3.2.</span> <span class="nav-text">使用 JPQL 查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL-查询"><span class="nav-number">3.3.</span> <span class="nav-text">SQL 查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法名称规则查询"><span class="nav-number">3.4.</span> <span class="nav-text">方法名称规则查询</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Specifications动态查询"><span class="nav-number">4.</span> <span class="nav-text">Specifications动态查询</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#条件查询"><span class="nav-number">4.1.</span> <span class="nav-text">条件查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#条件-排序查询"><span class="nav-number">4.2.</span> <span class="nav-text">条件+排序查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#条件-分页查询"><span class="nav-number">4.3.</span> <span class="nav-text">条件+分页查询</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多表查询"><span class="nav-number">5.</span> <span class="nav-text">多表查询</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一对多"><span class="nav-number">5.1.</span> <span class="nav-text">一对多</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建-linkman-表"><span class="nav-number">5.1.1.</span> <span class="nav-text">创建 linkman 表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建实体类和对应接口"><span class="nav-number">5.1.2.</span> <span class="nav-text">创建实体类和对应接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置关系"><span class="nav-number">5.1.3.</span> <span class="nav-text">配置关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加记录"><span class="nav-number">5.1.4.</span> <span class="nav-text">添加记录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除记录"><span class="nav-number">5.1.5.</span> <span class="nav-text">删除记录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#级联操作"><span class="nav-number">5.1.6.</span> <span class="nav-text">级联操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对象导航查询"><span class="nav-number">5.1.7.</span> <span class="nav-text">对象导航查询</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多对多"><span class="nav-number">5.2.</span> <span class="nav-text">多对多</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建数据库表-1"><span class="nav-number">5.2.1.</span> <span class="nav-text">创建数据库表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建对应实体类"><span class="nav-number">5.2.2.</span> <span class="nav-text">创建对应实体类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建接口"><span class="nav-number">5.2.3.</span> <span class="nav-text">创建接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加记录-1"><span class="nav-number">5.2.4.</span> <span class="nav-text">添加记录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#级联操作-1"><span class="nav-number">5.2.5.</span> <span class="nav-text">级联操作</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">stone</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="Total Visitors">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="Total Views">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'BfQW4FLTza3lJnrgwNX9oCW1-gzGzoHsz',
+    appKey: '0L4jcEeI7bk5hnenGxU9XGk2',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn'
+  });
+</script>
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      document.getElementById(all[i].inputID + '-Frame').parentNode.className += ' has-jax';
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<!-- 页面点击核心价值观 -->
+<script type="text/javascript" src="/js/src/clickfuqiang.js"></script>
+<!-- 点击爆炸 -->
+
+<!-- 音频播放 -->
+<link rel="stylesheet" href="/js/src/APlayer.min.css">
+  <div id="player" class="aplayer aplayer-withlist aplayer-fixed" data-id="3148759183" data-server="netease" data-type="playlist" data-order="random" data-fixed="true" data-listfolded="true" data-theme="#2D8CF0"></div>
+  <script src="/js/src/APlayer.min.js"></script>
+  <script src="/js/src/music.js"></script>
+<script>
+$(".aplayer-play").click()   // 如果想让歌曲在页面加载完播放可以设置
+</script>
+
+<!-- 猫 -->
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/2662419405/CDN/pio.css">
+<script src="https://cdn.jsdelivr.net/gh/2662419405/CDN/l2dPlus.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/2662419405/CDN/pioPlus.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/2662419405/CDN/mao.js"></script>
+
+<!-- mouse-click -->
+<script src="/js/src/mouseclick.js" type="text/javascript"></script>
+<!-- mouse-follow -->
+<span class="js-cursor-container"></span>
+<script src="/js/src/mousefollow.js" type="text/javascript"></script>

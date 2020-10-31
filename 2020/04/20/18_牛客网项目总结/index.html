@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="数据库用户表，包括 id、用户名、密码、盐值、邮箱、类型（普通/管理员/版主）、状态（激活/未激活）、激活码（随机字符串）、头像 url、注册时间。 登录凭证表，包括 id、用户 id、登陆凭证（随机字符串）、登录状态（有效/无效）、过期时间。 评论表，包括 id、评论用户 id（索引）、评论实体 id（索引）、评论类型（帖子/回复）、被评论目标 id、评论内容、评论状态（有效/无效）、评论时间。">
+<meta name="keywords" content="项目">
+<meta property="og:type" content="article">
+<meta property="og:title" content="牛客网项目总结">
+<meta property="og:url" content="http://yoursite.com/2020/04/20/18_牛客网项目总结/index.html">
+<meta property="og:site_name" content="Nowhere">
+<meta property="og:description" content="数据库用户表，包括 id、用户名、密码、盐值、邮箱、类型（普通/管理员/版主）、状态（激活/未激活）、激活码（随机字符串）、头像 url、注册时间。 登录凭证表，包括 id、用户 id、登陆凭证（随机字符串）、登录状态（有效/无效）、过期时间。 评论表，包括 id、评论用户 id（索引）、评论实体 id（索引）、评论类型（帖子/回复）、被评论目标 id、评论内容、评论状态（有效/无效）、评论时间。">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-10-31T04:29:39.712Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="牛客网项目总结">
+<meta name="twitter:description" content="数据库用户表，包括 id、用户名、密码、盐值、邮箱、类型（普通/管理员/版主）、状态（激活/未激活）、激活码（随机字符串）、头像 url、注册时间。 登录凭证表，包括 id、用户 id、登陆凭证（随机字符串）、登录状态（有效/无效）、过期时间。 评论表，包括 id、评论用户 id（索引）、评论实体 id（索引）、评论类型（帖子/回复）、被评论目标 id、评论内容、评论状态（有效/无效）、评论时间。">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2020/04/20/18_牛客网项目总结/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>牛客网项目总结 | Nowhere</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Nowhere</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/20/18_牛客网项目总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="stone">
+      <meta itemprop="description" content="Hungry Fool">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nowhere">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">牛客网项目总结
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-04-20 10:12:47" itemprop="dateCreated datePublished" datetime="2020-04-20T10:12:47+08:00">2020-04-20</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-10-31 12:29:39" itemprop="dateModified" datetime="2020-10-31T12:29:39+08:00">2020-10-31</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/面试/" itemprop="url" rel="index"><span itemprop="name">面试</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">Comments: </span>
+                <a href="/2020/04/20/18_牛客网项目总结/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/04/20/18_牛客网项目总结/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             Views:  
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h3><p><strong>用户表</strong>，包括 id、用户名、密码、盐值、邮箱、类型（普通/管理员/版主）、状态（激活/未激活）、激活码（随机字符串）、头像 url、注册时间。</p>
+<p><strong>登录凭证表</strong>，包括 id、用户 id、登陆凭证（随机字符串）、登录状态（有效/无效）、过期时间。</p>
+<p><strong>评论表</strong>，包括 id、评论用户 id（索引）、评论实体 id（索引）、评论类型（帖子/回复）、被评论目标 id、评论内容、评论状态（有效/无效）、评论时间。</p>
+<p><strong>帖子表</strong>，包括 id、发帖用户 id（索引）、标题、帖子内容、类型（普通/置顶）、评论数量、状态（普通/精华/拉黑）、发帖时间。</p>
+<p><strong>消息表</strong>，包括 id、发消息 id（索引）、收消息 id（索引）、会话 id（由发消息双方 id 拼接，索引）、内容、状态（未读/已读/删除）、发消息时间。<br><a id="more"></a></p>
+<hr>
+<h3 id="注册"><a href="#注册" class="headerlink" title="注册"></a>注册</h3><p><strong>判断注册合法性</strong></p>
+<ul>
+<li>利用 StringUtils 判断用户名、密码、邮箱是否非空。</li>
+<li>分别通过用户名和邮箱查询是否已经注册（为数据库的用户名和邮箱字段添加索引）。</li>
+</ul>
+<p><strong>通过 <code>set</code> 方法为用户设置各项信息</strong>，包括 MD5 加密后的密码、激活码等，然后插入数据库。</p>
+<p><strong>给用户发送激活邮件</strong></p>
+<ul>
+<li><p>在新浪邮箱打开 SMTP 服务，引入 <code>spring-boot-starter-mail</code> 依赖。</p>
+</li>
+<li><p>在配置文件配置主机（smtp.sina.com）、端口（465）、邮箱、授权码、协议（smtps），设置 smtp.ssl.enable = true。</p>
+</li>
+<li><p>调用 JavaMailSender 的 API 发送邮件，激活 url 由用户 id 和用户的激活码拼接而成。点击激活 url 后由 controller 中的方法进行处理（成功/重复/失败），调用 Model 对象的 <code>addAttribute</code> 方法将结果返回前端。</p>
+</li>
+</ul>
+<hr>
+<h3 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h3><p><strong>生成验证码</strong></p>
+<ul>
+<li><p>引入 kaptcha 依赖，将验证码的大小、范围、长度等属性封装到 Properties 对象，作为参数构造 Config 对象，再用 Config 对象作为 DeafultKaptcha 对象  <code>setConfig</code> 方法的参数为验证码设置属性。</p>
+</li>
+<li><p>在登录的 controller 处理验证码，设置页面的响应类型为 png，通过 ImageIO 的 <code>write</code> 方法将图片输出到浏览器。</p>
+</li>
+</ul>
+<p><strong>判断验证码正确后，调用业务层处理</strong></p>
+<ul>
+<li>利用 StringUtils 判断用户名、密码是否非空，之后判断用户是否存在、用户是否激活、密码是否正确，将错误信息存到 map 集合。</li>
+<li>如果全部合法，为用户生成一个包含过期时间的登录凭证，将凭证存入 redis 和 map 集合。</li>
+</ul>
+<p><strong>根据返回的 map 是否包含登陆凭证判断登陆状态</strong></p>
+<ul>
+<li>如果登录成功，将凭证存入 cookie 并重定向至首页。</li>
+<li>如果登陆失败，将 map 中的错误信息添加到 Model 对象，返回登录页。</li>
+</ul>
+<hr>
+<h3 id="检查登录状态"><a href="#检查登录状态" class="headerlink" title="检查登录状态"></a>检查登录状态</h3><p>只处理带有自定义注解的方法，防止用户在未登录情况下通过 url 访问没有权限的页面。</p>
+<p>利用 ThreadLocal 创建 HostHolder 类，包括 <code>set</code>、<code>get</code>、<code>remove</code> 方法，模拟 session 存储用户信息。</p>
+<p>通过实现 HandlerInterceptor 接口创建一个拦截器，在 <code>preHandle</code> 方法中通过查询是否有登录凭证的 cookie，如果有则通过登录凭证查询用户 ID，再通过用户 ID 查询用户。最后将用户放入 hostHolder 中，在本次请求中持有用户信息。</p>
+<p>创建 <code>@LoginRequired</code> 自定义注解，作用范围在方法上，有效期为运行时。为需要在登录状态下调用的方法，例如修改密码、上传头像等方法上等加上自定义注解。</p>
+<p>创建拦截器，在 <code>preHandle</code> 中判断方法是否添加了 <code>@LoginRequired</code> 注解，如果加了并且从 hostHolder 获取不到用户则拒绝访问。</p>
+<hr>
+<h3 id="发帖、评论、私信"><a href="#发帖、评论、私信" class="headerlink" title="发帖、评论、私信"></a>发帖、评论、私信</h3><p><strong>敏感词过滤</strong></p>
+<ul>
+<li>创建静态内部类 TrieNode ，通过 boolean 结束符判断是否匹配到关键字尾部。</li>
+<li>利用 <code>@PostConstruct</code> 注解，在构造方法执行后初始化字典树。</li>
+<li>添加 <code>filter</code> 方法，利用双指针进行匹配，过滤敏感词。</li>
+</ul>
+<p><strong>发帖、评论、私信</strong></p>
+<ul>
+<li><p>对内容进行 HTML 转义以及过滤敏感词。</p>
+</li>
+<li><p>将信息插入数据库的帖子/评论/消息表。</p>
+</li>
+</ul>
+<hr>
+<h3 id="点赞"><a href="#点赞" class="headerlink" title="点赞"></a>点赞</h3><p>创建 RedisKeyUtil 工具类，通过实体类型和实体 id 生成对应实体获得赞的 key。</p>
+<p>点赞/取消点赞：</p>
+<ul>
+<li><p>通过 RedisKeyUtil 获得实体点赞的 key，然后通过 RedisTemplate 的 API 操作，调用集合的 <code>isMember</code> 方法查询 userId 是否存在于对应集合中，如果存在则移除出点赞的用户集合，如果不存在则添加到点赞的用户集合。</p>
+</li>
+<li><p>通过 RedisTemplate 的 <code>execute</code> 方法实现事务，保证被点赞用户点和点赞用户的数据更新一致。通过 <code>isMember</code> 方法查询用户的点赞状态，之后通过 <code>mutli</code> 方法开启事务。</p>
+</li>
+</ul>
+<p>点赞数量：通过调用 set 集合的 <code>size</code> 方法查询元素个数。</p>
+<p>点赞状态：通过 set 集合的 <code>isMember</code> 方法实现。</p>
+<hr>
+<h3 id="关注和粉丝"><a href="#关注和粉丝" class="headerlink" title="关注和粉丝"></a>关注和粉丝</h3><p>在 RedisUnitl 工具类增加两个方法</p>
+<ul>
+<li><p>通过用户 id 和实体类型获得用户关注的实体集合的 key。</p>
+</li>
+<li><p>通过实体类型和实体 id 获得实体拥有的粉丝集合的 key。</p>
+</li>
+</ul>
+<p>当用户关注某实体时，</p>
+<ul>
+<li>将实体 id 和时间作为 value 和 score 加入用户的关注集合。</li>
+<li>将用户 id 和时间作为 value 和 score 加入实体的粉丝集合。</li>
+</ul>
+<p>当用户取消关注某实体时，将实体从用户的关注集合移除，用户从实体的粉丝集合移除。</p>
+<p><strong>关注列表和粉丝列表</strong></p>
+<ul>
+<li>用户的关注列表，通过 zset 的  <code>reverseRange</code> 获取 value 即关注用户的 userId，再查询出 user，通过 <code>score</code> 获取关注时间。</li>
+<li>用户的粉丝列表，通过 zset 的  <code>reverseRange</code> 获取 value 即粉丝的 userId，再查询出 user，通过 <code>score</code> 获取关注时间。</li>
+<li>列表信息封装在 list 集合中，再将 list 添加到 Model 对象里。</li>
+</ul>
+<hr>
+<h3 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h3><p><strong>发送系统通知</strong></p>
+<p>创建 Event 类，封装事件对象，包括主题（评论、点赞、关注）、用户 id、实体类型、实体 id，以及一个 map 集合存放其它信息。</p>
+<p><strong>触发事件</strong></p>
+<p>通过 Event 获取事件类型，并将其封装成 JSON 数据，然后调用注入的 KafkaTemplate 实例的 send 方法发送。</p>
+<p><strong>消费事件</strong></p>
+<p>通过 <code>@KafkaListener</code> 注解，topic 包括了评论、点赞和关注。从 recored 中获取信息，封装成 Message 对象然后调用 <code>addMessage</code> 方法插入数据库。</p>
+<hr>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/项目/" rel="tag"># 项目</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/04/20/19_银行面试题/" rel="next" title="面试题 1">
+                <i class="fa fa-chevron-left"></i> 面试题 1
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/04/20/Daily-word-5/" rel="prev" title="Daily word 5">
+                Daily word 5 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/">
+            
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="stone">
+            
+          </a>
+              <p class="site-author-name" itemprop="name">stone</p>
+              <div class="site-description motion-element" itemprop="description">Hungry Fool</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">36</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库"><span class="nav-number">1.</span> <span class="nav-text">数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注册"><span class="nav-number">2.</span> <span class="nav-text">注册</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#登录"><span class="nav-number">3.</span> <span class="nav-text">登录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检查登录状态"><span class="nav-number">4.</span> <span class="nav-text">检查登录状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#发帖、评论、私信"><span class="nav-number">5.</span> <span class="nav-text">发帖、评论、私信</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#点赞"><span class="nav-number">6.</span> <span class="nav-text">点赞</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关注和粉丝"><span class="nav-number">7.</span> <span class="nav-text">关注和粉丝</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kafka"><span class="nav-number">8.</span> <span class="nav-text">Kafka</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">stone</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="Total Visitors">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="Total Views">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'BfQW4FLTza3lJnrgwNX9oCW1-gzGzoHsz',
+    appKey: '0L4jcEeI7bk5hnenGxU9XGk2',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn'
+  });
+</script>
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      document.getElementById(all[i].inputID + '-Frame').parentNode.className += ' has-jax';
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<!-- 页面点击核心价值观 -->
+<script type="text/javascript" src="/js/src/clickfuqiang.js"></script>
+<!-- 点击爆炸 -->
+
+<!-- 音频播放 -->
+<link rel="stylesheet" href="/js/src/APlayer.min.css">
+  <div id="player" class="aplayer aplayer-withlist aplayer-fixed" data-id="3148759183" data-server="netease" data-type="playlist" data-order="random" data-fixed="true" data-listfolded="true" data-theme="#2D8CF0"></div>
+  <script src="/js/src/APlayer.min.js"></script>
+  <script src="/js/src/music.js"></script>
+<script>
+$(".aplayer-play").click()   // 如果想让歌曲在页面加载完播放可以设置
+</script>
+
+<!-- 猫 -->
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/2662419405/CDN/pio.css">
+<script src="https://cdn.jsdelivr.net/gh/2662419405/CDN/l2dPlus.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/2662419405/CDN/pioPlus.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/2662419405/CDN/mao.js"></script>
+
+<!-- mouse-click -->
+<script src="/js/src/mouseclick.js" type="text/javascript"></script>
+<!-- mouse-follow -->
+<span class="js-cursor-container"></span>
+<script src="/js/src/mousefollow.js" type="text/javascript"></script>
